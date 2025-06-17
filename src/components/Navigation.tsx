@@ -18,12 +18,12 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="text-2xl font-bold">
             <span className="text-neon-orange animate-neon-pulse">AUTO</span>
-            <span className="text-white">PRO</span>
+            <span className="text-gray-900">PRO</span>
           </div>
           
           <div className="flex space-x-8">
@@ -39,7 +39,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
                   className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                     activeItem === item.id
                       ? "text-neon-orange shadow-neon-orange"
-                      : "text-gray-400 hover:text-white"
+                      : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
                   <Icon size={24} />

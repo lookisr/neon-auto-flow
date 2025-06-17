@@ -29,7 +29,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       icon: Car,
       content: (
         <div className="space-y-4">
-          <Label className="text-white text-lg">Выберите тип автомобиля</Label>
+          <Label className="text-gray-900 text-lg">Выберите тип автомобиля</Label>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {["Седан", "SUV/Кроссовер", "Хэтчбек", "Минивен", "Спорткар", "Другое"].map((type) => (
               <button
@@ -38,7 +38,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 className={`p-4 rounded-lg border transition-all duration-300 ${
                   formData.carType === type
                     ? "border-neon-orange bg-neon-orange/20 text-neon-orange"
-                    : "border-gray-600 bg-gray-800/50 text-white hover:border-neon-orange/50"
+                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-neon-orange/50"
                 }`}
               >
                 {type}
@@ -53,7 +53,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       icon: DollarSign,
       content: (
         <div className="space-y-4">
-          <Label className="text-white text-lg">Укажите предполагаемый бюджет</Label>
+          <Label className="text-gray-900 text-lg">Укажите предполагаемый бюджет</Label>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {["До 1 млн ₽", "1-2 млн ₽", "2-3 млн ₽", "3-5 млн ₽", "5+ млн ₽", "Другое"].map((budget) => (
               <button
@@ -62,7 +62,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 className={`p-4 rounded-lg border transition-all duration-300 ${
                   formData.budget === budget
                     ? "border-neon-green bg-neon-green/20 text-neon-green"
-                    : "border-gray-600 bg-gray-800/50 text-white hover:border-neon-green/50"
+                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-neon-green/50"
                 }`}
               >
                 {budget}
@@ -77,7 +77,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       icon: MapPin,
       content: (
         <div className="space-y-4">
-          <Label className="text-white text-lg">Как планируете получить автомобиль?</Label>
+          <Label className="text-gray-900 text-lg">Как планируете получить автомобиль?</Label>
           <div className="space-y-3">
             {[
               "Доставка до двери (включена в стоимость)",
@@ -90,7 +90,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 className={`w-full p-4 rounded-lg border text-left transition-all duration-300 ${
                   formData.delivery === delivery
                     ? "border-neon-blue bg-neon-blue/20 text-neon-blue"
-                    : "border-gray-600 bg-gray-800/50 text-white hover:border-neon-blue/50"
+                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-neon-blue/50"
                 }`}
               >
                 {delivery}
@@ -106,34 +106,34 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       content: (
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-white">Имя</Label>
+            <Label htmlFor="name" className="text-gray-900">Имя</Label>
             <Input
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               placeholder="Ваше имя"
-              className="bg-gray-800/50 border-gray-600 text-white"
+              className="bg-gray-50 border-gray-300 text-gray-900"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="phone" className="text-white">Телефон</Label>
+            <Label htmlFor="phone" className="text-gray-900">Телефон</Label>
             <Input
               id="phone"
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               placeholder="+7 (999) 123-45-67"
-              className="bg-gray-800/50 border-gray-600 text-white"
+              className="bg-gray-50 border-gray-300 text-gray-900"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-white">Email (необязательно)</Label>
+            <Label htmlFor="email" className="text-gray-900">Email (необязательно)</Label>
             <Input
               id="email"
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
               placeholder="your@email.com"
-              className="bg-gray-800/50 border-gray-600 text-white"
+              className="bg-gray-50 border-gray-300 text-gray-900"
             />
           </div>
         </div>
@@ -148,8 +148,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
             <CheckCircle className="h-10 w-10 text-neon-green" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-white mb-4">Заявка принята!</h3>
-            <p className="text-gray-300 mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Заявка принята!</h3>
+            <p className="text-gray-600 mb-6">
               Наш специалист свяжется с вами в течение 15 минут для уточнения деталей 
               и подбора идеального автомобиля из Кореи.
             </p>
@@ -187,19 +187,19 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-black border-gray-700 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-white border-gray-300 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           {/* Progress bar */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-gray-500">
                 Шаг {currentStep + 1} из {steps.length}
               </span>
               <span className="text-sm text-neon-orange">
                 {Math.round(((currentStep + 1) / steps.length) * 100)}%
               </span>
             </div>
-            <div className="w-full bg-gray-700 rounded-full h-2">
+            <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-neon-orange to-neon-red h-2 rounded-full transition-all duration-500"
                 style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
@@ -213,7 +213,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <div className="p-3 bg-neon-orange/20 rounded-full border border-neon-orange/50">
                 <Icon className="h-6 w-6 text-neon-orange" />
               </div>
-              <h2 className="text-2xl font-bold text-white">{currentStepData.title}</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{currentStepData.title}</h2>
             </div>
             
             {currentStepData.content}
@@ -226,7 +226,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 onClick={handlePrev}
                 disabled={currentStep === 0}
                 variant="outline"
-                className="border-gray-600 text-white hover:bg-gray-800"
+                className="border-gray-300 text-gray-900 hover:bg-gray-100"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Назад

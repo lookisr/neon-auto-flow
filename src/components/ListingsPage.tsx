@@ -75,7 +75,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
   ];
 
   const CarCard = ({ car }: { car: any }) => (
-    <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-lg border border-gray-700 rounded-2xl overflow-hidden hover:border-neon-orange/50 transition-all duration-300 group">
+    <div className="bg-white backdrop-blur-lg border border-gray-200 rounded-2xl overflow-hidden hover:border-neon-orange/50 transition-all duration-300 group shadow-lg">
       <div className="relative">
         <img 
           src={car.image} 
@@ -83,21 +83,21 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {car.isCompany && (
-          <div className="absolute top-4 left-4 bg-neon-green/90 text-black px-3 py-1 rounded-full text-sm font-semibold">
+          <div className="absolute top-4 left-4 bg-neon-green/90 text-white px-3 py-1 rounded-full text-sm font-semibold">
             ✓ Проверено
           </div>
         )}
-        <div className="absolute top-4 right-4 bg-black/80 text-neon-red px-3 py-1 rounded-full text-sm font-bold">
+        <div className="absolute top-4 right-4 bg-white/90 text-neon-red px-3 py-1 rounded-full text-sm font-bold">
           {car.price}
         </div>
       </div>
       
       <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-neon-orange transition-colors">
+        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-neon-orange transition-colors">
           {car.title}
         </h3>
         
-        <div className="space-y-2 text-sm text-gray-300 mb-4">
+        <div className="space-y-2 text-sm text-gray-600 mb-4">
           <div className="flex items-center gap-2">
             <Calendar size={16} className="text-neon-blue" />
             <span>{car.year} год</span>
@@ -111,7 +111,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
             <span>{car.location}</span>
           </div>
           {!car.isCompany && (
-            <div className="text-gray-400">
+            <div className="text-gray-500">
               Продавец: {car.seller}
             </div>
           )}
@@ -127,23 +127,23 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-4xl font-bold text-gray-900">
             Объявления <span className="text-neon-orange">автомобилей</span>
           </h1>
           <Button 
             onClick={onClose}
             variant="outline" 
-            className="border-gray-600 text-white hover:bg-gray-800"
+            className="border-gray-300 text-gray-900 hover:bg-gray-100"
           >
             Закрыть
           </Button>
         </div>
 
         {/* Фильтры */}
-        <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/30 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 mb-8">
+        <div className="bg-gray-50 backdrop-blur-lg border border-gray-200 rounded-2xl p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -151,15 +151,15 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                 placeholder="Поиск автомобиля..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-gray-800/50 border-gray-600 text-white"
+                className="pl-10 bg-white border-gray-300 text-gray-900"
               />
             </div>
             
             <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-              <SelectTrigger className="bg-gray-800/50 border-gray-600 text-white">
+              <SelectTrigger className="bg-white border-gray-300 text-gray-900">
                 <SelectValue placeholder="Марка" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
+              <SelectContent className="bg-white border-gray-300">
                 <SelectItem value="toyota">Toyota</SelectItem>
                 <SelectItem value="hyundai">Hyundai</SelectItem>
                 <SelectItem value="kia">Kia</SelectItem>
@@ -169,10 +169,10 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
             </Select>
             
             <Select value={priceRange} onValueChange={setPriceRange}>
-              <SelectTrigger className="bg-gray-800/50 border-gray-600 text-white">
+              <SelectTrigger className="bg-white border-gray-300 text-gray-900">
                 <SelectValue placeholder="Цена" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
+              <SelectContent className="bg-white border-gray-300">
                 <SelectItem value="0-1000000">До 1 млн ₽</SelectItem>
                 <SelectItem value="1000000-2000000">1-2 млн ₽</SelectItem>
                 <SelectItem value="2000000-3000000">2-3 млн ₽</SelectItem>
@@ -189,16 +189,16 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
 
         {/* Вкладки */}
         <Tabs defaultValue="company" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-800/50 border border-gray-700">
+          <TabsList className="grid w-full grid-cols-2 bg-gray-100 border border-gray-200">
             <TabsTrigger 
               value="company" 
-              className="data-[state=active]:bg-neon-green/20 data-[state=active]:text-neon-green text-white"
+              className="data-[state=active]:bg-neon-green/20 data-[state=active]:text-neon-green text-gray-900"
             >
               От компании ({companyCards.length})
             </TabsTrigger>
             <TabsTrigger 
               value="users" 
-              className="data-[state=active]:bg-neon-blue/20 data-[state=active]:text-neon-blue text-white"
+              className="data-[state=active]:bg-neon-blue/20 data-[state=active]:text-neon-blue text-gray-900"
             >
               Частные ({userCards.length})
             </TabsTrigger>
@@ -215,7 +215,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           <TabsContent value="users" className="mt-8">
             <div className="mb-6 text-center">
               <div className="bg-neon-blue/20 border border-neon-blue/50 rounded-2xl p-6 max-w-md mx-auto">
-                <p className="text-white mb-4">
+                <p className="text-gray-900 mb-4">
                   Для просмотра частных объявлений необходима регистрация
                 </p>
                 <Button className="bg-neon-blue hover:bg-neon-blue/80 text-white">

@@ -21,32 +21,32 @@ const LeadGeneratorCard = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-lg border border-gray-700 rounded-2xl p-8 shadow-2xl hover:shadow-neon-red/20 transition-all duration-500 animate-fade-in-up">
+    <div className="bg-white backdrop-blur-lg border border-gray-200 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 animate-fade-in-up">
       <div className="text-center mb-6">
         <div className="flex justify-center mb-4">
           <div className="p-3 bg-neon-red/20 rounded-full border border-neon-red/50 shadow-neon-red">
             <Zap className="h-8 w-8 text-neon-red animate-neon-pulse" />
           </div>
         </div>
-        <h2 className="text-3xl font-bold text-white mb-2">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">
           Продайте авто за 
           <span className="text-neon-red text-neon-glow"> 30 минут</span>
         </h2>
-        <p className="text-gray-300">Получите выгодное предложение прямо сейчас</p>
+        <p className="text-gray-600">Получите выгодное предложение прямо сейчас</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="brand" className="text-white font-medium flex items-center gap-2">
+            <Label htmlFor="brand" className="text-gray-900 font-medium flex items-center gap-2">
               <Car size={16} className="text-neon-orange" />
               Марка автомобиля
             </Label>
             <Select value={formData.brand} onValueChange={(value) => setFormData({...formData, brand: value})}>
-              <SelectTrigger className="bg-gray-800/50 border-gray-600 text-white hover:border-neon-orange/50 transition-colors">
+              <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 hover:border-neon-orange/50 transition-colors">
                 <SelectValue placeholder="Выберите марку" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
+              <SelectContent className="bg-white border-gray-300">
                 <SelectItem value="toyota">Toyota</SelectItem>
                 <SelectItem value="honda">Honda</SelectItem>
                 <SelectItem value="hyundai">Hyundai</SelectItem>
@@ -58,7 +58,7 @@ const LeadGeneratorCard = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="model" className="text-white font-medium">
+            <Label htmlFor="model" className="text-gray-900 font-medium">
               Модель
             </Label>
             <Input
@@ -66,20 +66,20 @@ const LeadGeneratorCard = () => {
               value={formData.model}
               onChange={(e) => setFormData({...formData, model: e.target.value})}
               placeholder="Например, Camry"
-              className="bg-gray-800/50 border-gray-600 text-white placeholder-gray-400 hover:border-neon-orange/50 focus:border-neon-orange transition-colors"
+              className="bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 hover:border-neon-orange/50 focus:border-neon-orange transition-colors"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="year" className="text-white font-medium flex items-center gap-2">
+            <Label htmlFor="year" className="text-gray-900 font-medium flex items-center gap-2">
               <Calendar size={16} className="text-neon-orange" />
               Год выпуска
             </Label>
             <Select value={formData.year} onValueChange={(value) => setFormData({...formData, year: value})}>
-              <SelectTrigger className="bg-gray-800/50 border-gray-600 text-white hover:border-neon-orange/50 transition-colors">
+              <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 hover:border-neon-orange/50 transition-colors">
                 <SelectValue placeholder="Выберите год" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
+              <SelectContent className="bg-white border-gray-300">
                 {Array.from({ length: 25 }, (_, i) => {
                   const year = new Date().getFullYear() - i;
                   return (
@@ -93,7 +93,7 @@ const LeadGeneratorCard = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="price" className="text-white font-medium flex items-center gap-2">
+            <Label htmlFor="price" className="text-gray-900 font-medium flex items-center gap-2">
               <DollarSign size={16} className="text-neon-green" />
               Желаемая сумма
             </Label>
@@ -102,7 +102,7 @@ const LeadGeneratorCard = () => {
               value={formData.price}
               onChange={(e) => setFormData({...formData, price: e.target.value})}
               placeholder="Например, 1 500 000"
-              className="bg-gray-800/50 border-gray-600 text-white placeholder-gray-400 hover:border-neon-green/50 focus:border-neon-green transition-colors"
+              className="bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 hover:border-neon-green/50 focus:border-neon-green transition-colors"
             />
           </div>
         </div>
@@ -117,7 +117,7 @@ const LeadGeneratorCard = () => {
       </form>
 
       <div className="mt-6 text-center">
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-500">
           🔒 Ваши данные защищены • 
           <span className="text-neon-green"> Бесплатная оценка</span> • 
           Без обязательств
