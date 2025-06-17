@@ -1,4 +1,5 @@
 
+
 import { Car, MapPin, MessageSquare, Phone } from "lucide-react";
 import { useState } from "react";
 
@@ -10,6 +11,10 @@ interface NavigationProps {
 const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   const [activeItem, setActiveItem] = useState("home");
 
+  const handleHomeClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleContactClick = () => {
     const footer = document.querySelector('footer');
     if (footer) {
@@ -18,7 +23,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   };
 
   const navItems = [
-    { id: "home", icon: Car, label: "Главная" },
+    { id: "home", icon: Car, label: "Главная", onClick: handleHomeClick },
     { id: "korea", icon: MapPin, label: "Авто из Кореи", onClick: onKoreaClick },
     { id: "listings", icon: MessageSquare, label: "Объявления", onClick: onListingsClick },
     { id: "contact", icon: Phone, label: "Контакты", onClick: handleContactClick },
@@ -62,3 +67,4 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
 };
 
 export default Navigation;
+
