@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -37,8 +36,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 onClick={() => setFormData({...formData, carType: type})}
                 className={`p-4 rounded-lg border transition-all duration-300 ${
                   formData.carType === type
-                    ? "border-neon-orange bg-neon-orange/20 text-neon-orange"
-                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-neon-orange/50"
+                    ? "border-orange-500 bg-orange-50 text-orange-600"
+                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-orange-300"
                 }`}
               >
                 {type}
@@ -61,8 +60,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 onClick={() => setFormData({...formData, budget})}
                 className={`p-4 rounded-lg border transition-all duration-300 ${
                   formData.budget === budget
-                    ? "border-neon-green bg-neon-green/20 text-neon-green"
-                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-neon-green/50"
+                    ? "border-green-500 bg-green-50 text-green-600"
+                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-green-300"
                 }`}
               >
                 {budget}
@@ -89,8 +88,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 onClick={() => setFormData({...formData, delivery})}
                 className={`w-full p-4 rounded-lg border text-left transition-all duration-300 ${
                   formData.delivery === delivery
-                    ? "border-neon-blue bg-neon-blue/20 text-neon-blue"
-                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-neon-blue/50"
+                    ? "border-blue-500 bg-blue-50 text-blue-600"
+                    : "border-gray-300 bg-gray-50 text-gray-900 hover:border-blue-300"
                 }`}
               >
                 {delivery}
@@ -144,8 +143,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       icon: CheckCircle,
       content: (
         <div className="text-center space-y-6">
-          <div className="p-4 bg-neon-green/20 rounded-full w-20 h-20 mx-auto flex items-center justify-center">
-            <CheckCircle className="h-10 w-10 text-neon-green" />
+          <div className="p-4 bg-green-50 rounded-full w-20 h-20 mx-auto flex items-center justify-center">
+            <CheckCircle className="h-10 w-10 text-green-500" />
           </div>
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Заявка принята!</h3>
@@ -156,7 +155,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
           </div>
           <Button 
             onClick={onClose}
-            className="bg-neon-orange hover:bg-neon-orange/80 text-white px-8 py-3"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3"
           >
             Получить консультацию
           </Button>
@@ -195,13 +194,13 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <span className="text-sm text-gray-500">
                 Шаг {currentStep + 1} из {steps.length}
               </span>
-              <span className="text-sm text-neon-orange">
+              <span className="text-sm text-orange-500">
                 {Math.round(((currentStep + 1) / steps.length) * 100)}%
               </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
-                className="bg-gradient-to-r from-neon-orange to-neon-red h-2 rounded-full transition-all duration-500"
+                className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full transition-all duration-500"
                 style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
               />
             </div>
@@ -210,8 +209,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
           {/* Step content */}
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-neon-orange/20 rounded-full border border-neon-orange/50">
-                <Icon className="h-6 w-6 text-neon-orange" />
+              <div className="p-3 bg-orange-50 rounded-full border border-orange-200">
+                <Icon className="h-6 w-6 text-orange-500" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900">{currentStepData.title}</h2>
             </div>
@@ -235,7 +234,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               {currentStep === steps.length - 2 ? (
                 <Button
                   onClick={handleSubmit}
-                  className="bg-neon-green hover:bg-neon-green/80 text-white"
+                  className="bg-green-500 hover:bg-green-600 text-white"
                 >
                   Отправить заявку
                   <CheckCircle className="ml-2 h-4 w-4" />
@@ -249,7 +248,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                     (currentStep === 2 && !formData.delivery) ||
                     (currentStep === 3 && (!formData.name || !formData.phone))
                   }
-                  className="bg-neon-orange hover:bg-neon-orange/80 text-white"
+                  className="bg-orange-500 hover:bg-orange-600 text-white"
                 >
                   Далее
                   <ArrowRight className="ml-2 h-4 w-4" />

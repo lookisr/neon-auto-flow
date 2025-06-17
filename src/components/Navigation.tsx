@@ -22,7 +22,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="text-2xl font-bold">
-            <span className="text-neon-orange animate-neon-pulse">AUTO</span>
+            <span className="text-orange-500">AUTO</span>
             <span className="text-gray-900">PRO</span>
           </div>
           
@@ -36,9 +36,9 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
                     setActiveItem(item.id);
                     item.onClick?.();
                   }}
-                  className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                  className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-all duration-300 hover:scale-105 ${
                     activeItem === item.id
-                      ? "text-neon-orange shadow-neon-orange"
+                      ? "text-orange-500"
                       : "text-gray-600 hover:text-gray-900"
                   }`}
                 >

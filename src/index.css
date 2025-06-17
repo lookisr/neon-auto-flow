@@ -99,15 +99,15 @@
 }
 
 @layer utilities {
-  .text-neon-glow {
-    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  .text-subtle-glow {
+    text-shadow: 0 0 3px currentColor;
   }
   
-  .border-neon-glow {
-    box-shadow: 0 0 10px currentColor, inset 0 0 10px currentColor;
+  .border-subtle-glow {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1), inset 0 0 5px rgba(0, 0, 0, 0.05);
   }
   
-  .bg-gradient-neon {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+  .bg-gradient-soft {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(249, 115, 22, 0.05) 100%);
   }
 }

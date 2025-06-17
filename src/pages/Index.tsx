@@ -24,7 +24,7 @@ const Index = () => {
           <div className="text-center mb-12">
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               Продайте авто
-              <span className="block text-neon-red text-neon-glow animate-neon-pulse">
+              <span className="block text-red-500">
                 ДОРОГО
               </span>
               <span className="block text-3xl md:text-5xl mt-4 text-gray-600">
@@ -51,8 +51,8 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center group">
-              <div className="inline-flex p-4 bg-neon-green/20 rounded-full border border-neon-green/50 shadow-neon-green mb-6 group-hover:shadow-neon-green/50 transition-all duration-300">
-                <div className="w-12 h-12 bg-neon-green rounded-full flex items-center justify-center text-white font-bold text-xl">
+              <div className="inline-flex p-4 bg-green-50 rounded-full border border-green-200 mb-6 group-hover:border-green-300 transition-all duration-300">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                   ✓
                 </div>
               </div>
@@ -63,8 +63,8 @@ const Index = () => {
             </div>
             
             <div className="text-center group">
-              <div className="inline-flex p-4 bg-neon-orange/20 rounded-full border border-neon-orange/50 shadow-neon-orange mb-6 group-hover:shadow-neon-orange/50 transition-all duration-300">
-                <div className="w-12 h-12 bg-neon-orange rounded-full flex items-center justify-center text-white font-bold text-xl">
+              <div className="inline-flex p-4 bg-orange-50 rounded-full border border-orange-200 mb-6 group-hover:border-orange-300 transition-all duration-300">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                   🚗
                 </div>
               </div>
@@ -75,8 +75,8 @@ const Index = () => {
             </div>
             
             <div className="text-center group">
-              <div className="inline-flex p-4 bg-neon-red/20 rounded-full border border-neon-red/50 shadow-neon-red mb-6 group-hover:shadow-neon-red/50 transition-all duration-300">
-                <div className="w-12 h-12 bg-neon-red rounded-full flex items-center justify-center text-white font-bold text-xl">
+              <div className="inline-flex p-4 bg-red-50 rounded-full border border-red-200 mb-6 group-hover:border-red-300 transition-all duration-300">
+                <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                   ⚡
                 </div>
               </div>
@@ -94,7 +94,7 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center">
             <div className="text-3xl font-bold mb-4">
-              <span className="text-neon-orange animate-neon-pulse">AUTO</span>
+              <span className="text-orange-500">AUTO</span>
               <span className="text-gray-900">PRO</span>
             </div>
             <p className="text-gray-600 mb-6">

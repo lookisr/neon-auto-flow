@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -75,7 +74,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
   ];
 
   const CarCard = ({ car }: { car: any }) => (
-    <div className="bg-white backdrop-blur-lg border border-gray-200 rounded-2xl overflow-hidden hover:border-neon-orange/50 transition-all duration-300 group shadow-lg">
+    <div className="bg-white backdrop-blur-lg border border-gray-200 rounded-2xl overflow-hidden hover:border-orange-300 transition-all duration-300 group shadow-lg">
       <div className="relative">
         <img 
           src={car.image} 
@@ -83,31 +82,31 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {car.isCompany && (
-          <div className="absolute top-4 left-4 bg-neon-green/90 text-white px-3 py-1 rounded-full text-sm font-semibold">
+          <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
             ✓ Проверено
           </div>
         )}
-        <div className="absolute top-4 right-4 bg-white/90 text-neon-red px-3 py-1 rounded-full text-sm font-bold">
+        <div className="absolute top-4 right-4 bg-white/90 text-red-500 px-3 py-1 rounded-full text-sm font-bold">
           {car.price}
         </div>
       </div>
       
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-neon-orange transition-colors">
+        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors">
           {car.title}
         </h3>
         
         <div className="space-y-2 text-sm text-gray-600 mb-4">
           <div className="flex items-center gap-2">
-            <Calendar size={16} className="text-neon-blue" />
+            <Calendar size={16} className="text-blue-500" />
             <span>{car.year} год</span>
           </div>
           <div className="flex items-center gap-2">
-            <Car size={16} className="text-neon-orange" />
+            <Car size={16} className="text-orange-500" />
             <span>{car.mileage}</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-neon-green" />
+            <MapPin size={16} className="text-green-500" />
             <span>{car.location}</span>
           </div>
           {!car.isCompany && (
@@ -117,7 +116,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           )}
         </div>
         
-        <Button className="w-full bg-neon-red hover:bg-neon-red/80 text-white">
+        <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
           Подробнее
         </Button>
       </div>
@@ -131,7 +130,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900">
-            Объявления <span className="text-neon-orange">автомобилей</span>
+            Объявления <span className="text-orange-500">автомобилей</span>
           </h1>
           <Button 
             onClick={onClose}
@@ -180,7 +179,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
               </SelectContent>
             </Select>
             
-            <Button className="bg-neon-orange hover:bg-neon-orange/80 text-white">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white">
               <Filter className="mr-2 h-4 w-4" />
               Применить
             </Button>
@@ -192,13 +191,13 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           <TabsList className="grid w-full grid-cols-2 bg-gray-100 border border-gray-200">
             <TabsTrigger 
               value="company" 
-              className="data-[state=active]:bg-neon-green/20 data-[state=active]:text-neon-green text-gray-900"
+              className="data-[state=active]:bg-green-50 data-[state=active]:text-green-600 text-gray-900"
             >
               От компании ({companyCards.length})
             </TabsTrigger>
             <TabsTrigger 
               value="users" 
-              className="data-[state=active]:bg-neon-blue/20 data-[state=active]:text-neon-blue text-gray-900"
+              className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 text-gray-900"
             >
               Частные ({userCards.length})
             </TabsTrigger>
@@ -214,11 +213,11 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           
           <TabsContent value="users" className="mt-8">
             <div className="mb-6 text-center">
-              <div className="bg-neon-blue/20 border border-neon-blue/50 rounded-2xl p-6 max-w-md mx-auto">
+              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 max-w-md mx-auto">
                 <p className="text-gray-900 mb-4">
                   Для просмотра частных объявлений необходима регистрация
                 </p>
-                <Button className="bg-neon-blue hover:bg-neon-blue/80 text-white">
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white">
                   Зарегистрироваться бесплатно
                 </Button>
               </div>

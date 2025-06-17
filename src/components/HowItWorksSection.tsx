@@ -8,28 +8,28 @@ const HowItWorksSection = () => {
       number: "01",
       title: "Оставьте заявку",
       description: "Заполните форму с данными о вашем автомобиле",
-      color: "neon-blue"
+      color: "blue"
     },
     {
       icon: CheckCircle,
       number: "02", 
       title: "Получите оценку",
       description: "Наш эксперт проведет предварительную оценку",
-      color: "neon-orange"
+      color: "orange"
     },
     {
       icon: Clock,
       number: "03",
       title: "Выезд специалиста",
       description: "Осмотр автомобиля и финальная оценка на месте",
-      color: "neon-green"
+      color: "green"
     },
     {
       icon: DollarSign,
       number: "04",
       title: "Получите деньги",
       description: "Мгновенная выплата наличными или на карту",
-      color: "neon-red"
+      color: "red"
     }
   ];
 
@@ -38,7 +38,7 @@ const HowItWorksSection = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Как мы <span className="text-neon-orange text-neon-glow">работаем</span>
+            Как мы <span className="text-orange-500">работаем</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Простой и прозрачный процесс выкупа автомобилей
@@ -56,15 +56,15 @@ const HowItWorksSection = () => {
               >
                 <div className="text-center">
                   <div className="relative mb-6">
-                    <div className={`inline-flex p-4 rounded-full bg-${step.color}/20 border border-${step.color}/50 shadow-${step.color} group-hover:shadow-${step.color}/50 transition-all duration-300`}>
-                      <Icon className={`h-8 w-8 text-${step.color}`} />
+                    <div className={`inline-flex p-4 rounded-full bg-${step.color}-50 border border-${step.color}-200 group-hover:border-${step.color}-300 transition-all duration-300`}>
+                      <Icon className={`h-8 w-8 text-${step.color}-500`} />
                     </div>
-                    <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full bg-${step.color} text-white font-bold text-sm flex items-center justify-center shadow-${step.color}`}>
+                    <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full bg-${step.color}-500 text-white font-bold text-sm flex items-center justify-center`}>
                       {step.number}
                     </div>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-neon-orange transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors">
                     {step.title}
                   </h3>
                   
@@ -73,15 +73,15 @@ const HowItWorksSection = () => {
                   </p>
                 </div>
 
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-gray-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-gray-100/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             );
           })}
         </div>
 
         <div className="mt-16 text-center">
-          <div className="inline-block bg-neon-green/20 border border-neon-green/50 rounded-2xl p-6">
-            <p className="text-neon-green font-semibold text-lg">
+          <div className="inline-block bg-green-50 border border-green-200 rounded-2xl p-6">
+            <p className="text-green-600 font-semibold text-lg">
               ⚡ Среднее время сделки: <span className="text-gray-900">30 минут</span>
             </p>
           </div>
