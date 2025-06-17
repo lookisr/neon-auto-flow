@@ -1,12 +1,126 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from "react";
+import Navigation from "@/components/Navigation";
+import LeadGeneratorCard from "@/components/LeadGeneratorCard";
+import VideoSection from "@/components/VideoSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import KoreaCarWizard from "@/components/KoreaCarWizard";
+import ListingsPage from "@/components/ListingsPage";
 
 const Index = () => {
+  const [isKoreaWizardOpen, setIsKoreaWizardOpen] = useState(false);
+  const [isListingsOpen, setIsListingsOpen] = useState(false);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-black text-white">
+      <Navigation 
+        onKoreaClick={() => setIsKoreaWizardOpen(true)}
+        onListingsClick={() => setIsListingsOpen(true)}
+      />
+      
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              Продайте авто
+              <span className="block text-neon-red text-neon-glow animate-neon-pulse">
+                ДОРОГО
+              </span>
+              <span className="block text-3xl md:text-5xl mt-4 text-gray-300">
+                и быстро
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto">
+              Выкупаем любые автомобили по максимальной цене. 
+              Оценка за 5 минут, деньги сразу на руки.
+            </p>
+          </div>
+          
+          <div className="max-w-2xl mx-auto">
+            <LeadGeneratorCard />
+          </div>
+        </div>
+      </section>
+
+      <VideoSection />
+      <HowItWorksSection />
+      
+      {/* Features Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-gray-900/20 to-transparent">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center group">
+              <div className="inline-flex p-4 bg-neon-green/20 rounded-full border border-neon-green/50 shadow-neon-green mb-6 group-hover:shadow-neon-green/50 transition-all duration-300">
+                <div className="w-12 h-12 bg-neon-green rounded-full flex items-center justify-center text-black font-bold text-xl">
+                  ✓
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">Гарантия лучшей цены</h3>
+              <p className="text-gray-300">
+                Предложим цену выше рыночной или найдем того, кто предложит больше
+              </p>
+            </div>
+            
+            <div className="text-center group">
+              <div className="inline-flex p-4 bg-neon-orange/20 rounded-full border border-neon-orange/50 shadow-neon-orange mb-6 group-hover:shadow-neon-orange/50 transition-all duration-300">
+                <div className="w-12 h-12 bg-neon-orange rounded-full flex items-center justify-center text-black font-bold text-xl">
+                  🚗
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">Авто из Кореи</h3>
+              <p className="text-gray-300">
+                Прямые поставки качественных автомобилей с аукционов Кореи
+              </p>
+            </div>
+            
+            <div className="text-center group">
+              <div className="inline-flex p-4 bg-neon-red/20 rounded-full border border-neon-red/50 shadow-neon-red mb-6 group-hover:shadow-neon-red/50 transition-all duration-300">
+                <div className="w-12 h-12 bg-neon-red rounded-full flex items-center justify-center text-black font-bold text-xl">
+                  ⚡
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">Срочный выкуп</h3>
+              <p className="text-gray-300">
+                Деньги в день обращения. Работаем 24/7, выезжаем в любую точку города
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gradient-to-t from-black to-gray-900 py-12 px-4 border-t border-gray-800">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center">
+            <div className="text-3xl font-bold mb-4">
+              <span className="text-neon-orange animate-neon-pulse">AUTO</span>
+              <span className="text-white">PRO</span>
+            </div>
+            <p className="text-gray-400 mb-6">
+              Профессиональный выкуп автомобилей и продажа авто из Кореи
+            </p>
+            <div className="flex justify-center space-x-6 text-gray-400">
+              <span>+7 (999) 123-45-67</span>
+              <span>•</span>
+              <span>info@autopro.ru</span>
+              <span>•</span>
+              <span>Москва, ул. Примерная, 123</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Modals */}
+      <KoreaCarWizard 
+        isOpen={isKoreaWizardOpen}
+        onClose={() => setIsKoreaWizardOpen(false)}
+      />
+      
+      <ListingsPage 
+        isOpen={isListingsOpen}
+        onClose={() => setIsListingsOpen(false)}
+      />
     </div>
   );
 };
