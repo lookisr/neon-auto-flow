@@ -10,11 +10,18 @@ interface NavigationProps {
 const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   const [activeItem, setActiveItem] = useState("home");
 
+  const handleContactClick = () => {
+    const footer = document.querySelector('footer');
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navItems = [
     { id: "home", icon: Car, label: "Главная" },
     { id: "korea", icon: MapPin, label: "Авто из Кореи", onClick: onKoreaClick },
     { id: "listings", icon: MessageSquare, label: "Объявления", onClick: onListingsClick },
-    { id: "contact", icon: Phone, label: "Контакты" },
+    { id: "contact", icon: Phone, label: "Контакты", onClick: handleContactClick },
   ];
 
   return (
