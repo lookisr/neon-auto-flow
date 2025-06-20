@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,14 +7,14 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 0 0% 5%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 14 100% 57%;
     --primary-foreground: 0 0% 98%;
@@ -37,25 +37,30 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 5%;
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 14 100% 57%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 96%;
     --sidebar-accent-foreground: 0 0% 5%;
     --sidebar-border: 0 0% 89%;
     --sidebar-ring: 14 100% 57%;
+
+    /* Новые переменные для магмы и стекла */
+    --glass-bg: 0 0% 100%;
+    --glass-border: 0 0% 100%;
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
 
   .dark {
-    --background: 0 0% 98%;
-    --foreground: 0 0% 5%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 14 100% 57%;
     --primary-foreground: 0 0% 98%;
@@ -75,8 +80,8 @@
     --border: 0 0% 89%;
     --input: 0 0% 89%;
     --ring: 14 100% 57%;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 5%;
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 14 100% 57%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 96%;
@@ -92,22 +97,307 @@
   }
 
   body {
-    @apply bg-white text-gray-900 font-sans antialiased;
-    background: radial-gradient(ellipse at top, rgba(250, 250, 250, 0.8) 0%, white 50%);
+    @apply text-gray-900 font-sans antialiased;
     min-height: 100vh;
+    background: rgb(0,0,0) !important;
+    position: relative;
   }
 }
 
 @layer utilities {
-  .text-subtle-glow {
-    text-shadow: 0 0 3px currentColor;
+  /* Glassmorphism эффекты с меньшим блюром */
+  .glass {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .glass-modal {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.2),
+      0 0 0 3px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
   
-  .border-subtle-glow {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1), inset 0 0 5px rgba(0, 0, 0, 0.05);
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
   
-  .bg-gradient-soft {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(249, 115, 22, 0.05) 100%);
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
+
+  /* Мобильная оптимизация */
+  @media (max-width: 768px) {
+    .glass {
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+    
+    .glass-modal {
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+  }
+}
+
+::placeholder {
+  color: rgba(255,255,255,0.85) !important;
+  opacity: 1;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255,255,255,0.85) !important;
+  opacity: 1;
+}
+
+/* === Carbon style for vertical volume slider thumb === */
+.volume-slider-vertical {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.volume-slider-vertical::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  background: repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px);
+  display: block;
+  transition: box-shadow 0.2s, border 0.2s;
+  cursor: pointer;
+}
+.volume-slider-vertical:focus::-webkit-slider-thumb,
+.volume-slider-vertical:hover::-webkit-slider-thumb {
+  border-color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15) inset;
+}
+
+/* Firefox */
+.volume-slider-vertical::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  background: repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px);
+  transition: box-shadow 0.2s, border 0.2s;
+  cursor: pointer;
+}
+.volume-slider-vertical:focus::-moz-range-thumb,
+.volume-slider-vertical:hover::-moz-range-thumb {
+  border-color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15) inset;
+}
+
+/* IE/Edge */
+.volume-slider-vertical::-ms-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  background: repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px);
+  transition: box-shadow 0.2s, border 0.2s;
+  cursor: pointer;
+}
+.volume-slider-vertical:focus::-ms-thumb,
+.volume-slider-vertical:hover::-ms-thumb {
+  border-color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15) inset;
+}
+
+/* Remove default track styles for all browsers */
+.volume-slider-vertical::-webkit-slider-runnable-track {
+  background: transparent;
+  border-radius: 8px;
+}
+.volume-slider-vertical::-ms-fill-lower,
+.volume-slider-vertical::-ms-fill-upper {
+  background: transparent;
+}
+.volume-slider-vertical::-moz-range-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+/* Hide outline for Firefox */
+.volume-slider-vertical:focus {
+  outline: none;
+}
+
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
+  font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02', 'cv03', 'cv04', 'cv11';
+  letter-spacing: 0.01em;
+}
+
+/* === Strict neutral focus for all form fields === */
+input:focus, select:focus, textarea:focus, .glass-input:focus {
+  border-color: rgba(255,255,255,0.7) !important;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.15) !important;
+  outline: none !important;
+}
+
+input:focus-visible, select:focus-visible, textarea:focus-visible, .glass-input:focus-visible {
+  border-color: rgba(255,255,255,0.7) !important;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.15) !important;
+  outline: none !important;
+}
+
+/* Убираем красную обводку при ошибке (если есть) */
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"], .glass-input[aria-invalid="true"] {
+  border-color: #888 !important;
+  box-shadow: 0 0 0 2px #222 !important;
+}
+
+.review-carbon-card {
+  background: repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.08) inset;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: box-shadow 0.2s, border 0.2s, transform 0.2s;
+}
+.review-carbon-card:hover {
+  border-color: #fff;
+  box-shadow: 0 12px 40px 0 rgba(0,0,0,0.35), 0 0 0 2px rgba(255,255,255,0.18) inset;
+}
+.letter-spacing-wide {
+  letter-spacing: 0.04em;
+}
+
+.review-carbon-frame {
+  background: repeating-linear-gradient(135deg, #2d2d2d 0 10px, #181818 10px 20px);
+  box-shadow: 0 2px 12px 2px rgba(0,0,0,0.28);
+  outline: 2px solid #232323;
+  outline-offset: 2px;
+  display: inline-block;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.review-carbon-frame:hover {
+  box-shadow: 0 4px 24px 4px rgba(0,0,0,0.38);
+}
+
+.review-glass-border {
+  border: 2.5px solid rgba(255,255,255,0.22);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset, 0 8px 32px rgba(0,0,0,0.22);
+  background: rgba(255,255,255,0.03);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.review-glass-border:hover {
+  border-color: rgba(255,255,255,0.38);
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.32), 0 0 8px 2px rgba(255,255,255,0.10) inset;
+}
+
+/* === Strict neutral styles for listings === */
+.listings-filter-btn {
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.13);
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: background 0.18s, border 0.18s;
+}
+.listings-filter-btn.active, .listings-filter-btn:active, .listings-filter-btn:focus {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
+  color: #fff;
+}
+input::placeholder, .glass-input::placeholder {
+  color: #bdbdbd;
+  opacity: 1;
+}
+/* Кнопка "Применить" фильтр */
+.listings-apply-btn {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.13);
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: background 0.18s, border 0.18s;
+}
+.listings-apply-btn:hover {
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.carbon-text {
+  background:
+    repeating-linear-gradient(135deg, #e0e0e0 0 4px, #fafafa 4px 8px),
+    repeating-linear-gradient(45deg, #cccccc 0 2px, #ffffff 2px 4px),
+    repeating-linear-gradient(90deg, #f5f5f5 0 1px, #e0e0e0 1px 2px);
+  background-blend-mode: lighten, lighten, lighten;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  letter-spacing: 0.04em;
+  font-weight: 900;
+  transition: none;
+}
+/* Убираем hover-эффект */
+.carbon-text:hover {
 }

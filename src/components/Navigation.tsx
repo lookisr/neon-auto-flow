@@ -1,7 +1,9 @@
-
-
-import { Car, MapPin, MessageSquare, Phone } from "lucide-react";
+import { Car, MapPin, MessageSquare, Phone, User, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "../contexts/AuthContext";
+import AuthModal from "./AuthModal";
+import { COMPANY_NAME, COMPANY_PHONE, COMPANY_PHONE_DISPLAY } from "@/config/constants";
 
 interface NavigationProps {
   onKoreaClick: () => void;
@@ -10,6 +12,9 @@ interface NavigationProps {
 
 const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   const [activeItem, setActiveItem] = useState("home");
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleHomeClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -22,6 +27,10 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   const navItems = [
     { id: "home", icon: Car, label: "Главная", onClick: handleHomeClick },
     { id: "korea", icon: MapPin, label: "Авто из Кореи", onClick: onKoreaClick },
@@ -30,39 +39,130 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <div className="text-2xl font-bold">
-            <span className="text-orange-500">AUTO</span>
-            <span className="text-gray-900">PRO</span>
-          </div>
-          
-          <div className="flex space-x-8">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setActiveItem(item.id);
-                    item.onClick?.();
-                  }}
-                  className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-all duration-300 hover:scale-105 ${
-                    activeItem === item.id
-                      ? "text-orange-500"
-                      : "text-gray-600 hover:text-gray-900"
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-white/10"
+      >
+        <nav className="container mx-auto flex items-center justify-between h-16 px-4">
+          {/* Логотип */}
+          <a
+            href="#hero"
+            className="text-2xl md:text-3xl font-extrabold tracking-tight text-white select-none"
+          >
+            {COMPANY_NAME}
+          </a>
+          {/* Десктоп-меню */}
+          <ul className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                  <button
+                    onClick={() => {
+                      setActiveItem(item.id);
+                      item.onClick?.();
+                    }}
+                  className={`text-white text-lg font-medium transition-colors duration-200 hover:text-gray-300 px-2 py-1 rounded ${
+                    activeItem === item.id ? "text-gray-300" : ""
                   }`}
                 >
-                  <Icon size={24} />
-                  <span className="text-xs font-medium">{item.label}</span>
+                  {item.label}
                 </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </nav>
+              </li>
+            ))}
+            <li>
+              <a
+                href={`tel:${COMPANY_PHONE}`}
+                className="ml-4 px-5 py-2 rounded-xl bg-white text-black font-bold text-base shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+              >
+                Позвонить
+              </a>
+            </li>
+            {!isAuthenticated && (
+              <li>
+                <button
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="ml-2 px-5 py-2 rounded-xl bg-white text-black font-bold text-base shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                >
+                  Войти
+                </button>
+              </li>
+            )}
+            {isAuthenticated && (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="ml-2 px-5 py-2 rounded-xl bg-white text-black font-bold text-base shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                >
+                  Выйти
+                </button>
+              </li>
+            )}
+          </ul>
+          {/* Мобильное меню */}
+          <button
+            className="md:hidden flex items-center justify-center p-2 text-white"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label="Открыть меню"
+          >
+            {mobileOpen ? <X size={28} /> : <Menu size={28} />}
+                  </button>
+          {/* Мобильное выпадающее меню */}
+          {mobileOpen && (
+            <div className="absolute top-16 left-0 w-full bg-black/95 backdrop-blur-md border-b border-white/10 shadow-lg md:hidden animate-fade-in-up">
+              <ul className="flex flex-col items-center gap-4 py-6">
+                {navItems.map((item) => (
+                  <li key={item.id}>
+                    <button
+                      onClick={() => {
+                        setActiveItem(item.id);
+                        item.onClick?.();
+                      }}
+                      className={`text-white text-xl font-medium transition-colors duration-200 hover:text-gray-300 px-2 py-1 rounded ${
+                        activeItem === item.id ? "text-gray-300" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href={`tel:${COMPANY_PHONE}`}
+                    className="mt-2 px-6 py-3 rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  >
+                    Позвонить
+                  </a>
+                </li>
+                {!isAuthenticated && (
+                  <li>
+                    <button
+                      onClick={() => setIsAuthModalOpen(true)}
+                      className="mt-2 px-6 py-3 rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    >
+                      Войти
+                    </button>
+                  </li>
+                )}
+                {isAuthenticated && (
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="mt-2 px-6 py-3 rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    >
+                      Выйти
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+      </nav>
+      </header>
+      
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
+    </>
   );
 };
 

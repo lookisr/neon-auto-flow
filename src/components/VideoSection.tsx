@@ -1,47 +1,150 @@
-
-import { Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Volume2, VolumeX } from "lucide-react";
 
 const VideoSection = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [volume, setVolume] = useState(0);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Видео видно - запускаем воспроизведение
+            video.play().catch(() => {
+              // Игнорируем ошибки автозапуска (браузеры могут блокировать)
+            });
+          } else {
+            // Видео не видно - останавливаем
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Запускаем когда 50% видео видно
+        rootMargin: '0px'
+      }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    
+    if (videoRef.current) {
+      videoRef.current.volume = newVolume;
+      videoRef.current.muted = newVolume === 0;
+      setIsMuted(newVolume === 0);
+    }
+  };
+
   return (
-    <section className="py-16 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Посмотрите, как мы <span className="text-orange-500">работаем</span>
+    <section className="py-20 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Как мы работаем
           </h2>
-          <p className="text-xl text-gray-600">
-            Реальные отзывы клиентов и процесс выкупа автомобилей
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Посмотрите видео о том, как происходит выкуп автомобилей в нашей компании
           </p>
         </div>
-
-        <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 backdrop-blur-lg border border-gray-200 rounded-2xl overflow-hidden group hover:border-orange-200 transition-all duration-500 shadow-lg">
-          <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-            <div className="text-center">
-              <div className="inline-flex p-6 bg-red-50 rounded-full border border-red-200 group-hover:border-red-300 transition-all duration-300 cursor-pointer hover:scale-110">
-                <Play className="h-12 w-12 text-red-500 fill-current" />
-              </div>
-              <div className="mt-4">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Видео скоро появится</h3>
-                <p className="text-gray-600">Мы готовим для вас интересный контент</p>
+        
+        <div className="relative max-w-4xl mx-auto">
+          <div className="flex w-full items-center justify-center gap-0 md:gap-8">
+            {/* Видео строго по центру, прежний размер */}
+            <div className="flex-1 flex justify-center">
+              <div className="glass-card rounded-3xl p-4 aspect-video relative overflow-hidden w-full max-w-4xl mx-auto">
+                {/* Локальное видео */}
+                <video
+                  ref={videoRef}
+                  className="w-full h-full rounded-2xl shadow-2xl object-cover"
+                  muted
+                  loop
+                  preload="metadata"
+                  poster="/videos/car_buyout_poster.jpg"
+                  style={{
+                    clipPath: 'inset(0 0 0 0 round 1rem)', // Закругленные края для видео
+                  }}
+                >
+                  <source src="/videos/car_buyout.mp4" type="video/mp4" />
+                  <p className="text-white text-center p-4">
+                    Ваш браузер не поддерживает видео.
+                  </p>
+                </video>
               </div>
             </div>
-          </div>
-          
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        </div>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 backdrop-blur-lg border border-gray-200 rounded-xl p-6 shadow-lg">
-            <div className="text-3xl font-bold text-green-600 mb-2">1000+</div>
-            <p className="text-gray-600">Довольных клиентов</p>
-          </div>
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 backdrop-blur-lg border border-gray-200 rounded-xl p-6 shadow-lg">
-            <div className="text-3xl font-bold text-orange-500 mb-2">24/7</div>
-            <p className="text-gray-600">Работаем круглосуточно</p>
-          </div>
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 backdrop-blur-lg border border-gray-200 rounded-xl p-6 shadow-lg">
-            <div className="text-3xl font-bold text-red-500 mb-2">30 мин</div>
-            <p className="text-gray-600">Среднее время сделки</p>
+            {/* Ползунок громкости */}
+            <div className="glass-card rounded-2xl p-6 flex flex-col items-center gap-4 min-w-[80px] ml-0 md:ml-8">
+              {/* Иконка звука */}
+              <button
+                onClick={toggleMute}
+                className="glass-card p-3 rounded-full border border-white/30 hover:bg-white/10 transition-all duration-300 hover:scale-110 group"
+              >
+                {isMuted ? (
+                  <VolumeX className="h-6 w-6 text-white group-hover:text-[#ff3333] transition-colors" />
+                ) : (
+                  <Volume2 className="h-6 w-6 text-white group-hover:text-[#ff3333] transition-colors" />
+                )}
+              </button>
+
+              {/* Ползунок громкости */}
+              <div className="relative flex flex-col items-center">
+                <div className="relative w-8 h-32 mb-4 flex items-end justify-center">
+                  {/* Фоновая дорожка */}
+                  <div className="absolute inset-0 rounded-full opacity-80 border border-white/10 shadow-inner"
+                       style={{ backgroundImage: 'repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px)' }}></div>
+                  
+                  {/* Активная часть */}
+                  <div 
+                    className="absolute bottom-0 left-0 w-full bg-white rounded-full transition-all duration-75"
+                    style={{ 
+                      height: `${volume * 100}%`,
+                    }}
+                  ></div>
+                  
+                  {/* Вертикальный ползунок */}
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={volume}
+                    onChange={handleVolumeChange}
+                    className="volume-slider-vertical"
+                    style={{
+                      width: '128px',
+                      height: '32px',
+                      cursor: 'pointer',
+                      background: 'transparent',
+                      position: 'absolute',
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%) rotate(-90deg)',
+                      zIndex: 10
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

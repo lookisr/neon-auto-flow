@@ -1,24 +1,44 @@
-# Logs
-logs
-*.log
+# Node
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Env
+.env
+.env.*
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Build
+/dist
+/build
+/.next
+/.nuxt
+
+# Logs
+logs
+*.log
+
+# OS
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Uploads
+uploads/
+
+# Cache
+.cache/
+.next/
+.nuxt/
+
+# Coverage
+coverage/
+
+# Misc
+*.local
+*.swp
