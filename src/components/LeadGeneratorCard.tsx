@@ -81,18 +81,17 @@ const LeadGeneratorCard = () => {
   };
 
   return (
-    <div className="glass-card rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 animate-float">
+    <div className="glass-card rounded-2xl p-8 shadow-xl transition-all duration-500">
       <div className="text-center mb-6">
         <div className="flex justify-center mb-4">
-          <div className="p-3 bg-gradient-to-br from-orange-400 to-red-500 rounded-full shadow-lg">
+          <div className="p-3 bg-[#ff3333] rounded-full">
             <Zap className="h-8 w-8 text-white" />
           </div>
         </div>
-        <h2 className="text-3xl font-bold text-white mb-2 text-white-glow">
-          Продайте авто за 
-          <span className="text-orange-400 text-magma-glow"> 30 минут</span>
+        <h2 className="text-3xl font-bold text-white mb-2">
+          Продайте авто за <span className="text-[#ff3333]">30 минут</span>
         </h2>
-        <p className="text-white text-lg text-white-glow drop-shadow-md">
+        <p className="text-white text-lg">
           Получите выгодное предложение прямо сейчас
         </p>
       </div>
@@ -101,11 +100,11 @@ const LeadGeneratorCard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <Label htmlFor="brand" className="text-white font-medium flex items-center gap-2">
-              <Car size={16} className="text-orange-400" />
+              <Car size={16} className="text-[#ff3333]" />
               Марка
             </Label>
             <Select value={formData.brand} onValueChange={(value) => setFormData({...formData, brand: value})}>
-              <SelectTrigger className="glass-input text-white hover:border-orange-400/50 transition-colors h-10">
+              <SelectTrigger className="glass-input text-white h-10">
                 <SelectValue placeholder="Выберите марку" />
               </SelectTrigger>
               <SelectContent className="glass-modal border-white/30">
@@ -121,7 +120,7 @@ const LeadGeneratorCard = () => {
 
           <div className="space-y-2">
             <Label htmlFor="model" className="text-white font-medium flex items-center gap-2">
-              <Car size={16} className="text-orange-400" />
+              <Car size={16} className="text-[#ff3333]" />
               Модель
             </Label>
             <Input
@@ -129,18 +128,18 @@ const LeadGeneratorCard = () => {
               value={formData.model}
               onChange={(e) => setFormData({...formData, model: e.target.value})}
               placeholder="Например, Camry"
-              className="glass-input text-white hover:border-orange-400/50 focus:border-orange-400/50 focus:ring-orange-400/20 transition-colors h-10"
+              className="glass-input text-white h-10"
               disabled={isSubmitting}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="year" className="text-white font-medium flex items-center gap-2">
-              <Calendar size={16} className="text-orange-400" />
+              <Calendar size={16} className="text-[#ff3333]" />
               Год выпуска
             </Label>
             <Select value={formData.year} onValueChange={(value) => setFormData({...formData, year: value})}>
-              <SelectTrigger className="glass-input text-white hover:border-orange-400/50 transition-colors">
+              <SelectTrigger className="glass-input text-white">
                 <SelectValue placeholder="Выберите год" />
               </SelectTrigger>
               <SelectContent className="glass-modal border-white/30">
@@ -158,7 +157,7 @@ const LeadGeneratorCard = () => {
 
           <div className="space-y-2">
             <Label htmlFor="desiredPrice" className="text-white font-medium flex items-center gap-2">
-              <DollarSign size={16} className="text-green-400" />
+              <DollarSign size={16} className="text-[#ff3333]" />
               Желаемая сумма
             </Label>
             <Input
@@ -166,7 +165,7 @@ const LeadGeneratorCard = () => {
               value={formData.desiredPrice}
               onChange={(e) => setFormData({...formData, desiredPrice: e.target.value})}
               placeholder="Например, 1500000"
-              className="glass-input text-white hover:border-green-400/50 focus:border-green-400/50 focus:ring-green-400/20 transition-colors"
+              className="glass-input text-white"
               disabled={isSubmitting}
             />
           </div>
@@ -180,7 +179,7 @@ const LeadGeneratorCard = () => {
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               placeholder={COMPANY_PHONE_DISPLAY}
-              className="glass-input text-white hover:border-orange-400/50 focus:border-orange-400/50 focus:ring-orange-400/20 transition-colors"
+              className="glass-input text-white"
               disabled={isSubmitting}
             />
           </div>
@@ -189,7 +188,7 @@ const LeadGeneratorCard = () => {
         <Button 
           type="submit" 
           disabled={isSubmitting}
-          className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+          className="w-full bg-[#ff3333] hover:bg-[#cc0000] text-white font-bold py-4 text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <>
@@ -197,18 +196,15 @@ const LeadGeneratorCard = () => {
               Отправка заявки...
             </>
           ) : (
-            <>
-              <Zap className="mr-2 h-5 w-5" />
-              Получить предложение за 5 минут
-            </>
+            <>Отправить заявку</>
           )}
         </Button>
       </form>
 
       <div className="mt-6 text-center">
-        <p className="text-sm text-white text-white-glow drop-shadow-md">
+        <p className="text-sm text-white">
           🔒 Ваши данные защищены • 
-          <span className="text-green-400 font-bold"> Бесплатная оценка</span> • 
+          <span className="text-[#ff3333] font-bold"> Бесплатная оценка</span> • 
           Без обязательств
         </p>
       </div>

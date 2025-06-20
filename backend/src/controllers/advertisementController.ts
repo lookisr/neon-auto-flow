@@ -68,11 +68,11 @@ export class AdvertisementController {
       console.log('🔧 [DEBUG] createAdvertisement: Final photoUrls:', photoUrls);
 
       console.log('🔧 [DEBUG] createAdvertisement: Extracted data:', { 
-        brand, 
-        model, 
-        year, 
-        price, 
-        description, 
+        brand,
+        model,
+        year,
+        price,
+        description,
         contacts,
         engineVolume,
         mileage,

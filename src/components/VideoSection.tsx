@@ -59,10 +59,10 @@ const VideoSection = () => {
     <section className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 text-white-glow">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Как мы работаем
           </h2>
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Посмотрите видео о том, как происходит выкуп автомобилей в нашей компании
           </p>
         </div>
@@ -89,13 +89,10 @@ const VideoSection = () => {
                     Ваш браузер не поддерживает видео.
                   </p>
                 </video>
-                {/* Декоративные элементы для гармонии с дизайном */}
-                <div className="absolute -top-2 -right-2 w-20 h-20 bg-gradient-to-br from-orange-400/20 to-red-500/20 rounded-full blur-xl"></div>
-                <div className="absolute -bottom-2 -left-2 w-16 h-16 bg-gradient-to-br from-red-400/20 to-orange-500/20 rounded-full blur-xl"></div>
               </div>
             </div>
 
-            {/* Ползунок громкости в стиле магмы */}
+            {/* Ползунок громкости */}
             <div className="glass-card rounded-2xl p-6 flex flex-col items-center gap-4 min-w-[80px] ml-0 md:ml-8">
               {/* Иконка звука */}
               <button
@@ -103,24 +100,24 @@ const VideoSection = () => {
                 className="glass-card p-3 rounded-full border border-white/30 hover:bg-white/10 transition-all duration-300 hover:scale-110 group"
               >
                 {isMuted ? (
-                  <VolumeX className="h-6 w-6 text-white group-hover:text-orange-400 transition-colors" />
+                  <VolumeX className="h-6 w-6 text-white group-hover:text-[#ff3333] transition-colors" />
                 ) : (
-                  <Volume2 className="h-6 w-6 text-white group-hover:text-orange-400 transition-colors" />
+                  <Volume2 className="h-6 w-6 text-white group-hover:text-[#ff3333] transition-colors" />
                 )}
               </button>
 
               {/* Ползунок громкости */}
               <div className="relative flex flex-col items-center">
                 <div className="relative w-8 h-32 mb-4 flex items-end justify-center">
-                  {/* Фоновая дорожка магмы */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-800 to-gray-600 rounded-full opacity-30"></div>
+                  {/* Фоновая дорожка */}
+                  <div className="absolute inset-0 rounded-full opacity-80 border border-white/10 shadow-inner"
+                       style={{ backgroundImage: 'repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px)' }}></div>
                   
-                  {/* След магмы */}
+                  {/* Активная часть */}
                   <div 
-                    className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-red-600 via-orange-500 to-yellow-400 rounded-full transition-all duration-75"
+                    className="absolute bottom-0 left-0 w-full bg-white rounded-full transition-all duration-75"
                     style={{ 
                       height: `${volume * 100}%`,
-                      boxShadow: '0 0 10px rgba(255, 69, 0, 0.5), 0 0 20px rgba(255, 69, 0, 0.3)'
                     }}
                   ></div>
                   

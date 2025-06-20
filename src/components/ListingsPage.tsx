@@ -254,7 +254,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
     } else if (sellerType === 'private') {
       matchesSeller = ad.user && ad.user.role === 'user';
     }
-
+    
     return matchesSearch && matchesBrand && matchesPrice && matchesSeller;
   });
 
@@ -268,7 +268,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
 
     return (
       <div 
-        className="glass-card rounded-xl p-6 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+        className="bg-black review-glass-border rounded-2xl p-4 cursor-pointer flex flex-col transition-all duration-300 hover:scale-105 hover:shadow-2xl"
         onClick={() => {
           setSelectedAdvertisement(ad);
           setIsDetailModalOpen(true);
@@ -276,72 +276,76 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
       >
         <div className="relative mb-4">
           {ad.photoUrls && ad.photoUrls.length > 0 ? (
-            <img
-              src={ad.photoUrls[0]}
-              alt={`${ad.brand} ${ad.carModel}`}
-              className="w-full h-48 object-cover rounded-lg"
-            />
+            <div className="review-carbon-frame rounded-xl p-1 mb-2">
+              <img
+                src={ad.photoUrls[0]}
+          alt={`${ad.brand} ${ad.carModel}`}
+                className="w-full h-48 object-contain rounded-xl"
+              />
+            </div>
           ) : (
-            <div className="w-full h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-lg flex items-center justify-center">
-              <Car className="h-16 w-16 text-gray-500" />
+            <div className="review-carbon-frame rounded-xl p-1 mb-2">
+              <div className="w-full h-48 bg-neutral-800 rounded-xl flex items-center justify-center">
+                <Car className="h-16 w-16 text-neutral-500" />
+              </div>
             </div>
           )}
           
           {/* Статус объявления */}
           <div className="absolute top-2 right-2">
             {ad.status === 'pending' && (
-              <span className="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+              <span className="bg-neutral-800 text-white px-2 py-1 rounded-full text-xs font-medium border border-white/20">
                 На модерации
               </span>
             )}
             {ad.status === 'rejected' && (
-              <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+              <span className="bg-neutral-900 text-white px-2 py-1 rounded-full text-xs font-medium border border-white/20">
                 Отклонено
               </span>
             )}
           </div>
 
-          <div className="absolute bottom-2 right-2 glass-card px-3 py-1 rounded-full text-lg font-bold text-orange-400">
+          <div className="absolute bottom-2 right-2 px-3 py-1 rounded-full text-lg font-bold text-white bg-black/70 border border-white/10">
             {ad.price.toLocaleString()} ₽
-          </div>
         </div>
-
+      </div>
+      
         <div className="space-y-3">
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-bold text-white mb-1">
-                {ad.brand} {ad.carModel}
-              </h3>
-              <p className="text-gray-300 text-sm">{ad.year} год</p>
-            </div>
+          {ad.brand} {ad.carModel}
+        </h3>
+              <p className="text-neutral-400 text-sm">{ad.year} год</p>
+          </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-sm text-gray-300">
+          <div className="grid grid-cols-2 gap-2 text-sm text-neutral-400">
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
               <span>{ad.year}</span>
-            </div>
+          </div>
             <div className="flex items-center gap-1">
               <MapPin className="h-4 w-4" />
               <span>{ad.mileage.toLocaleString()} км</span>
             </div>
-          </div>
-
-          <p className="text-gray-200 line-clamp-2 text-sm">
+        </div>
+        
+          <p className="text-neutral-300 line-clamp-2 text-sm">
             {ad.description}
           </p>
 
           {/* Кнопка звонка */}
           <Button 
             onClick={handleCallClick}
-            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
+            className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold backdrop-blur-sm transition-all"
           >
             <Phone className="mr-2 h-4 w-4" />
             Позвонить
-          </Button>
-        </div>
+        </Button>
       </div>
-    );
+    </div>
+  );
   };
 
   if (isLoading) {
@@ -349,8 +353,8 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-white text-white-glow">
-              Объявления <span className="text-orange-400">автомобилей</span>
+            <h1 className="text-4xl font-bold text-white">
+              Объявления <span className="text-neutral-300">автомобилей</span>
             </h1>
             <Button 
               onClick={onClose}
@@ -361,8 +365,8 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
             </Button>
           </div>
           <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-orange-400" />
-            <span className="ml-2 text-gray-200">Загрузка объявлений...</span>
+            <Loader2 className="h-8 w-8 animate-spin text-neutral-400" />
+            <span className="ml-2 text-neutral-300">Загрузка объявлений...</span>
           </div>
         </div>
       </div>
@@ -374,8 +378,8 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-white text-white-glow">
-              Объявления <span className="text-orange-400">автомобилей</span>
+            <h1 className="text-4xl font-bold text-white">
+              Объявления <span className="text-neutral-300">автомобилей</span>
             </h1>
             <Button 
               onClick={onClose}
@@ -386,9 +390,9 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
             </Button>
           </div>
           <div className="text-center py-8">
-            <AlertCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
-            <p className="text-red-200 mb-4">Ошибка загрузки: {error}</p>
-            <Button onClick={() => window.location.reload()} className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white">
+            <AlertCircle className="h-12 w-12 text-neutral-500 mx-auto mb-4" />
+            <p className="text-neutral-300 mb-4">Ошибка загрузки: {error}</p>
+            <Button onClick={() => window.location.reload()} className="listings-apply-btn flex items-center justify-center gap-2">
               Попробовать снова
             </Button>
           </div>
@@ -410,125 +414,125 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           <div className="absolute inset-0 overflow-y-auto">
             <div className="min-h-full w-full py-8">
               <div className="container mx-auto px-4">
-                <div className="flex justify-between items-center mb-8">
-                  <h1 className="text-4xl font-bold text-white text-white-glow">
-                    Объявления <span className="text-orange-400">автомобилей</span>
-                  </h1>
-                  <div className="flex items-center space-x-4">
-                    {isAuthenticated && (
-                      <Button
-                        onClick={() => setIsAddModalOpen(true)}
-                        className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
-                      >
-                        <Plus className="mr-2 h-4 w-4" />
-                        Добавить объявление
-                      </Button>
-                    )}
+          <div className="flex justify-between items-center mb-8">
+                  <h1 className="text-4xl font-bold text-white">
+                    Объявления <span className="text-neutral-300">автомобилей</span>
+            </h1>
+            <div className="flex items-center space-x-4">
+              {isAuthenticated && (
+                <Button
+                  onClick={() => setIsAddModalOpen(true)}
+                  className="bg-neutral-800 text-white hover:bg-neutral-700 border border-white/20 shadow-none"
+                >
+                  <Plus className="mr-2 h-4 w-4" />
+                  Добавить объявление
+                </Button>
+              )}
                     {isAdmin && (
                       <Button
                         onClick={() => setIsModerationOpen(true)}
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white relative"
+                        className="listings-apply-btn flex items-center gap-2 relative"
                       >
                         <Shield className="mr-2 h-4 w-4" />
                         Модерация
                         {pendingCount > 0 && (
-                          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                          <span className="absolute -top-2 -right-2 bg-neutral-700 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
                             {pendingCount}
                           </span>
                         )}
-                      </Button>
-                    )}
-                    <Button 
-                      onClick={onClose}
-                      variant="outline" 
+                </Button>
+              )}
+              <Button 
+                onClick={onClose}
+                variant="outline" 
                       className="glass-input text-white border-white/30 hover:bg-white/10"
-                    >
-                      Закрыть
-                    </Button>
-                  </div>
-                </div>
+              >
+                Закрыть
+              </Button>
+            </div>
+          </div>
 
-                {/* Фильтры */}
+          {/* Фильтры */}
                 <div className="glass-card rounded-xl p-6 mb-8">
                   <div className="flex justify-center gap-4 mb-6">
                     <button
-                      className={`px-6 py-2 rounded-full font-bold transition-all text-white-glow ${sellerType === 'all' ? 'bg-orange-500 shadow-lg' : 'bg-white/10 hover:bg-orange-400/30'}`}
+                      className={`listings-filter-btn px-6 py-2 ${sellerType === 'all' ? 'active' : ''}`}
                       onClick={() => setSellerType('all')}
                     >
                       Все
                     </button>
                     <button
-                      className={`px-6 py-2 rounded-full font-bold transition-all text-white-glow ${sellerType === 'private' ? 'bg-orange-500 shadow-lg' : 'bg-white/10 hover:bg-orange-400/30'}`}
+                      className={`listings-filter-btn px-6 py-2 ${sellerType === 'private' ? 'active' : ''}`}
                       onClick={() => setSellerType('private')}
                     >
                       Частные
                     </button>
                     <button
-                      className={`px-6 py-2 rounded-full font-bold transition-all text-white-glow ${sellerType === 'company' ? 'bg-orange-500 shadow-lg' : 'bg-white/10 hover:bg-orange-400/30'}`}
+                      className={`listings-filter-btn px-6 py-2 ${sellerType === 'company' ? 'active' : ''}`}
                       onClick={() => setSellerType('company')}
                     >
                       Компании
                     </button>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="relative">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                      <Input
-                        placeholder="Поиск автомобиля..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                <Input 
+                  placeholder="Поиск автомобиля..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                         className="glass-input pl-10 text-white placeholder-gray-300"
-                      />
-                    </div>
-                    
-                    <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+                />
+              </div>
+              
+              <Select value={selectedBrand} onValueChange={setSelectedBrand}>
                       <SelectTrigger className="glass-input text-white">
-                        <SelectValue placeholder="Марка" />
-                      </SelectTrigger>
+                  <SelectValue placeholder="Марка" />
+                </SelectTrigger>
                       <SelectContent className="glass-modal">
                         <SelectItem value="all">Все марки</SelectItem>
-                        <SelectItem value="toyota">Toyota</SelectItem>
+                  <SelectItem value="toyota">Toyota</SelectItem>
                         <SelectItem value="honda">Honda</SelectItem>
-                        <SelectItem value="hyundai">Hyundai</SelectItem>
-                        <SelectItem value="kia">Kia</SelectItem>
+                  <SelectItem value="hyundai">Hyundai</SelectItem>
+                  <SelectItem value="kia">Kia</SelectItem>
                         <SelectItem value="nissan">Nissan</SelectItem>
-                        <SelectItem value="mazda">Mazda</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    
-                    <Select value={priceRange} onValueChange={setPriceRange}>
+                  <SelectItem value="mazda">Mazda</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Select value={priceRange} onValueChange={setPriceRange}>
                       <SelectTrigger className="glass-input text-white">
-                        <SelectValue placeholder="Цена" />
-                      </SelectTrigger>
+                  <SelectValue placeholder="Цена" />
+                </SelectTrigger>
                       <SelectContent className="glass-modal">
                         <SelectItem value="all">Любая цена</SelectItem>
                         <SelectItem value="under500k">До 500 000 ₽</SelectItem>
                         <SelectItem value="500k-1m">500 000 - 1 000 000 ₽</SelectItem>
                         <SelectItem value="1m-2m">1 000 000 - 2 000 000 ₽</SelectItem>
                         <SelectItem value="over2m">Более 2 000 000 ₽</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    
-                    <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white">
-                      <Filter className="mr-2 h-4 w-4" />
-                      Применить
-                    </Button>
-                  </div>
-                </div>
+                </SelectContent>
+              </Select>
+              
+                    <Button className="listings-apply-btn flex items-center justify-center gap-2">
+                <Filter className="mr-2 h-4 w-4" />
+                Применить
+              </Button>
+            </div>
+          </div>
 
                 {/* Список объявлений */}
                 {filteredAdvertisements.length === 0 ? (
                   <div className="glass-card rounded-xl p-6 text-center">
                     <Car className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-200">Объявления не найдены</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredAdvertisements.map((ad) => (
-                      <CarCard key={ad.id} ad={ad} />
-                    ))}
-                  </div>
-                )}
+                    <CarCard key={ad.id} ad={ad} />
+                  ))}
+                </div>
+              )}
               </div>
             </div>
           </div>
@@ -722,9 +726,9 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       className="glass-input"
                     />
                     <Label htmlFor="isDamaged">Битый или не на ходу</Label>
-                  </div>
-                </div>
-
+        </div>
+      </div>
+      
                 <div className="space-y-2">
                   <Label htmlFor="description">Описание</Label>
                   <Textarea

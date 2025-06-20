@@ -166,21 +166,21 @@ class ApiService {
     console.log('🔧 [DEBUG] Frontend request body:', JSON.stringify(requestBody));
     
     try {
-      const response = await this.request<AuthResponse>('/register', {
-        method: 'POST',
+    const response = await this.request<AuthResponse>('/register', {
+      method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestBody),
-      });
+    });
       
       console.log('🔧 [DEBUG] Frontend register response:', response);
-      
-      if (response.success && response.data?.token) {
-        localStorage.setItem('token', response.data.token);
-      }
-      
-      return response;
+    
+    if (response.success && response.data?.token) {
+      localStorage.setItem('token', response.data.token);
+    }
+    
+    return response;
     } catch (error) {
       console.error('🔧 [DEBUG] Frontend register error:', error);
       throw error;
@@ -194,21 +194,21 @@ class ApiService {
     console.log('🔧 [DEBUG] Frontend request body:', JSON.stringify(requestBody));
     
     try {
-      const response = await this.request<AuthResponse>('/login', {
-        method: 'POST',
+    const response = await this.request<AuthResponse>('/login', {
+      method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestBody),
-      });
+    });
       
       console.log('🔧 [DEBUG] Frontend login response:', response);
-      
-      if (response.success && response.data?.token) {
-        localStorage.setItem('token', response.data.token);
-      }
-      
-      return response;
+    
+    if (response.success && response.data?.token) {
+      localStorage.setItem('token', response.data.token);
+    }
+    
+    return response;
     } catch (error) {
       console.error('🔧 [DEBUG] Frontend login error:', error);
       throw error;

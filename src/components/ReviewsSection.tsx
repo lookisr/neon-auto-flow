@@ -52,23 +52,32 @@ const ReviewsSection = () => (
   <section className="py-20 px-4">
     <div className="container mx-auto max-w-6xl">
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 text-white-glow">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
           Отзывы клиентов
         </h2>
-        <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
           Реальные истории наших клиентов
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {reviews.map((review, idx) => (
-          <div key={idx} className="glass-card rounded-2xl p-4 flex flex-col items-center text-center shadow-xl">
-            <img
-              src={review.img}
-              alt={review.name}
-              className="w-full h-56 md:h-64 object-contain rounded-xl border-4 border-orange-500 shadow-lg mb-4"
-            />
-            <div className="text-lg font-bold text-white mb-2 text-white-glow">{review.name}</div>
-            <div className="text-gray-200 text-base">{review.text}</div>
+          <div
+            key={idx}
+            className="bg-black review-glass-border rounded-2xl p-4 flex flex-col items-center text-center shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+          >
+            <div className="review-carbon-frame rounded-xl p-1 mb-4">
+              <img
+                src={review.img}
+                alt={review.name}
+                className="w-full h-56 md:h-64 object-contain rounded-xl"
+              />
+            </div>
+            <div className="text-lg font-bold text-white mb-2 tracking-tight uppercase letter-spacing-wide">
+              {review.name}
+            </div>
+            <div className="text-gray-200 text-base font-medium leading-relaxed">
+              {review.text}
+            </div>
           </div>
         ))}
       </div>

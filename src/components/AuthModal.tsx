@@ -96,12 +96,14 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) =
       // Обработка специфических ошибок
       if (errorMessage.includes('уже зарегистрирован') || errorMessage.includes('already exists')) {
         setFieldErrors({ email: "Пользователь с таким email уже зарегистрирован" });
-      } else if (errorMessage.includes('неверный пароль') || errorMessage.includes('invalid credentials')) {
+      } else if (
+        errorMessage.includes('неверный пароль') ||
+        errorMessage.includes('user not found') ||
+        errorMessage.toLowerCase().includes('invalid credentials')
+      ) {
         setFieldErrors({ password: "Неверный email или пароль" });
-      } else if (errorMessage.includes('пользователь не найден') || errorMessage.includes('user not found')) {
-        setFieldErrors({ email: "Пользователь с таким email не найден" });
       } else {
-        setFieldErrors({ general: errorMessage });
+        setFieldErrors({ general: "Произошла ошибка. Пожалуйста, попробуйте ещё раз." });
       }
     } finally {
       setIsSubmitting(false);
@@ -131,33 +133,33 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) =
           {fieldErrors.general && (
             <div className="glass-card rounded-xl p-4 bg-red-500/20 border-red-500/30">
               <p className="text-red-400 text-center">{fieldErrors.general}</p>
-            </div>
+        </div>
           )}
 
-          <div className="space-y-4">
+            <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-white font-medium">
                 Email
               </Label>
-              <Input
+                <Input
                 id="email"
-                type="email"
+                  type="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 className="glass-input text-white placeholder-gray-300"
-                placeholder="your@email.com"
+                  placeholder="your@email.com"
                 disabled={isSubmitting}
                 required
-              />
-            </div>
+                />
+              </div>
 
             <div className="space-y-2">
               <Label htmlFor="password" className="text-white font-medium">
                 Пароль
               </Label>
-              <Input
+                <Input
                 id="password"
-                type="password"
+                  type="password"
                 value={formData.password}
                 onChange={(e) => handleInputChange('password', e.target.value)}
                 className="glass-input text-white placeholder-gray-300"
@@ -187,20 +189,20 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) =
           </div>
 
           <div className="flex flex-col space-y-4">
-            <Button
+              <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white w-full"
-            >
+              className="bg-neutral-800 text-white hover:bg-neutral-700 border border-white/20 shadow-none w-full"
+              >
               {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   {mode === 'register' ? 'Регистрация...' : 'Вход...'}
-                </>
-              ) : (
+                  </>
+                ) : (
                 mode === 'register' ? 'Зарегистрироваться' : 'Войти'
-              )}
-            </Button>
+                )}
+              </Button>
             
             <div className="text-center">
               <button
@@ -214,7 +216,7 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) =
                 }
               </button>
             </div>
-          </div>
+      </div>
         </form>
       </DialogContent>
     </Dialog>

@@ -294,7 +294,7 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
 
   const AdvertisementCard = ({ ad }: { ad: Advertisement }) => (
     <div 
-      className="glass-card rounded-xl p-6 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+      className="bg-black review-glass-border rounded-2xl p-4 cursor-pointer flex flex-col transition-all duration-300 hover:scale-105 hover:shadow-2xl"
       onClick={() => {
         setSelectedAdvertisement(ad);
         setIsDetailModalOpen(true);
@@ -302,36 +302,37 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
     >
       <div className="relative mb-4">
         {ad.photoUrls && ad.photoUrls.length > 0 ? (
-          <img
-            src={ad.photoUrls[0]}
-            alt={`${ad.brand} ${ad.carModel}`}
-            className="w-full h-48 object-cover rounded-lg"
-          />
+          <div className="review-carbon-frame rounded-xl p-1 mb-2">
+            <img
+              src={ad.photoUrls[0]}
+              alt={`${ad.brand} ${ad.carModel}`}
+              className="w-full h-48 object-contain rounded-xl"
+            />
+          </div>
         ) : (
-          <div className="w-full h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-lg flex items-center justify-center">
-            <Car className="h-16 w-16 text-gray-500" />
+          <div className="review-carbon-frame rounded-xl p-1 mb-2">
+            <div className="w-full h-48 bg-neutral-800 rounded-xl flex items-center justify-center">
+              <Car className="h-16 w-16 text-neutral-500" />
+            </div>
           </div>
         )}
-        
-        <div className="absolute top-2 left-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+        <div className="absolute top-2 left-2 bg-neutral-800 text-white px-2 py-1 rounded-full text-xs font-medium border border-white/20">
           ⏳ На модерации
         </div>
-        <div className="absolute top-2 right-2 glass-card px-3 py-1 rounded-full text-sm font-bold text-orange-400">
+        <div className="absolute top-2 right-2 px-3 py-1 rounded-full text-sm font-bold text-white bg-black/70 border border-white/10">
           {ad.price.toLocaleString()} ₽
         </div>
       </div>
-
       <div className="space-y-3">
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-xl font-bold text-white mb-1">
               {ad.brand} {ad.carModel}
             </h3>
-            <p className="text-gray-300 text-sm">{ad.year} год</p>
+            <p className="text-neutral-400 text-sm">{ad.year} год</p>
           </div>
         </div>
-
-        <div className="grid grid-cols-2 gap-2 text-sm text-gray-300">
+        <div className="grid grid-cols-2 gap-2 text-sm text-neutral-400">
           <div className="flex items-center gap-1">
             <Calendar className="h-4 w-4" />
             <span>{ad.year}</span>
@@ -341,27 +342,24 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
             <span>{ad.mileage.toLocaleString()} км</span>
           </div>
         </div>
-
-        <p className="text-gray-200 line-clamp-2 text-sm">
+        <p className="text-neutral-300 line-clamp-2 text-sm">
           {ad.description}
         </p>
-
-        <div className="text-sm text-gray-300">
+        <div className="text-sm text-neutral-400">
           <div className="flex items-center gap-1 mb-1">
             <Phone className="h-4 w-4" />
             <span className="truncate">{ad.contacts}</span>
           </div>
           {ad.user && (
-            <div className="text-xs text-gray-400">
+            <div className="text-xs text-neutral-500">
               Продавец: {ad.user.email}
             </div>
           )}
         </div>
-
         <div className="flex gap-2 flex-wrap pt-2">
           <Button 
             size="sm"
-            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white flex-1"
+            className="listings-apply-btn flex-1"
             onClick={(e) => {
               e.stopPropagation();
               setSelectedAdvertisement(ad);
@@ -373,7 +371,7 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
           </Button>
           <Button 
             size="sm"
-            className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white flex-1"
+            className="listings-apply-btn flex-1"
             onClick={(e) => {
               e.stopPropagation();
               handleApproveClick(ad);
@@ -385,7 +383,7 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
           </Button>
           <Button 
             size="sm"
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white flex-1"
+            className="listings-apply-btn flex-1"
             onClick={(e) => {
               e.stopPropagation();
               handleRejectClick(ad);
@@ -405,8 +403,8 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-white text-white-glow">
-              Модерация <span className="text-orange-400">объявлений</span>
+            <h1 className="text-4xl font-bold text-white">
+              Модерация <span className="text-neutral-300">объявлений</span>
             </h1>
             <Button 
               onClick={onClose}
@@ -417,8 +415,8 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
             </Button>
           </div>
           <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-orange-400" />
-            <span className="ml-2 text-gray-200">Загрузка объявлений...</span>
+            <Loader2 className="h-8 w-8 animate-spin text-neutral-400" />
+            <span className="ml-2 text-neutral-300">Загрузка объявлений...</span>
           </div>
         </div>
       </div>
@@ -430,8 +428,8 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-white text-white-glow">
-              Модерация <span className="text-orange-400">объявлений</span>
+            <h1 className="text-4xl font-bold text-white">
+              Модерация <span className="text-neutral-300">объявлений</span>
             </h1>
             <Button 
               onClick={onClose}
@@ -442,9 +440,9 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
             </Button>
           </div>
           <div className="text-center py-8">
-            <AlertCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
-            <p className="text-red-200 mb-4">Ошибка загрузки: {error}</p>
-            <Button onClick={fetchPendingAdvertisements} className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white">
+            <AlertCircle className="h-12 w-12 text-neutral-500 mx-auto mb-4" />
+            <p className="text-neutral-300 mb-4">Ошибка загрузки: {error}</p>
+            <Button onClick={fetchPendingAdvertisements} className="listings-apply-btn flex items-center justify-center gap-2">
               Попробовать снова
             </Button>
           </div>
@@ -462,15 +460,15 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
       {/* Модерация как плотное окно */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="bg-neutral-900 text-white rounded-2xl shadow-2xl max-w-5xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-orange-500">
+          <div className="bg-neutral-900 text-white rounded-2xl shadow-2xl max-w-5xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-white/15">
             <div className="container mx-auto px-6 py-8">
               <div className="flex justify-between items-center mb-8">
-                <h1 className="text-4xl font-bold text-white text-white-glow">
-                  Модерация <span className="text-orange-400">объявлений</span>
+                <h1 className="text-4xl font-bold text-white">
+                  Модерация <span className="text-neutral-300">объявлений</span>
                 </h1>
                 <Button 
                   onClick={onClose}
-                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold shadow-md"
+                  className="glass-input text-white border-white/30 hover:bg-white/10"
                 >
                   Закрыть
                 </Button>
@@ -478,8 +476,8 @@ const ModerationPage = ({ isOpen, onClose, onModerationUpdate }: ModerationPageP
 
               {pendingAdvertisements.length === 0 ? (
                 <div className="glass-card rounded-xl p-6 text-center">
-                  <CheckCircle className="h-12 w-12 text-green-400 mx-auto mb-4" />
-                  <p className="text-gray-200">Нет объявлений на модерации</p>
+                  <CheckCircle className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                  <p className="text-neutral-300">Нет объявлений на модерации</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

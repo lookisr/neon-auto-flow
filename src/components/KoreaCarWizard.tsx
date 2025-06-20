@@ -65,8 +65,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 onClick={() => setFormData({...formData, carType: type})}
                 className={`p-4 rounded-xl border transition-all duration-300 ${
                   formData.carType === type
-                    ? "glass-card border-orange-400/50 text-orange-400 shadow-lg scale-105"
-                    : "glass-input text-white border-white/30 hover:border-orange-400/50 hover:bg-white/5"
+                    ? "glass-card border-white/20 text-white shadow-lg scale-105"
+                    : "glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5"
                 }`}
               >
                 {type}
@@ -96,8 +96,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 onClick={() => setFormData({...formData, budget: budget.value.toString()})}
                 className={`p-4 rounded-xl border transition-all duration-300 ${
                   formData.budget === budget.value.toString()
-                    ? "glass-card border-green-400/50 text-green-400 shadow-lg scale-105"
-                    : "glass-input text-white border-white/30 hover:border-green-400/50 hover:bg-white/5"
+                    ? "glass-card border-white shadow-lg scale-105"
+                    : "glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5"
                 }`}
               >
                 {budget.label}
@@ -124,8 +124,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 onClick={() => setFormData({...formData, deliveryCity: delivery.city})}
                 className={`w-full p-4 rounded-xl border text-left transition-all duration-300 ${
                   formData.deliveryCity === delivery.city
-                    ? "glass-card border-blue-400/50 text-blue-400 shadow-lg scale-105"
-                    : "glass-input text-white border-white/30 hover:border-blue-400/50 hover:bg-white/5"
+                    ? "glass-card border-white shadow-lg scale-105"
+                    : "glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5"
                 }`}
               >
                 {delivery.label}
@@ -169,10 +169,10 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       content: (
         <div className="text-center space-y-6">
           <div className="glass-card rounded-full w-20 h-20 mx-auto flex items-center justify-center">
-            <CheckCircle className="h-10 w-10 text-green-400" />
+            <CheckCircle className="h-10 w-10 text-white" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-white mb-4 text-white-glow">Заявка принята!</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Заявка принята!</h3>
             <p className="text-gray-200 mb-6">
               Наш специалист свяжется с вами в течение 15 минут для уточнения деталей 
               и подбора идеального автомобиля из Кореи.
@@ -180,7 +180,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
           </div>
           <Button 
             onClick={handleCall}
-            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-8 py-3"
+            className="bg-white text-black px-8 py-3"
           >
             <Phone className="mr-2 h-4 w-4" />
             Получить консультацию
@@ -265,13 +265,13 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <span className="text-sm text-gray-300">
                 Шаг {currentStep + 1} из {steps.length}
               </span>
-              <span className="text-sm text-orange-400 font-medium">
+              <span className="text-sm text-white font-medium">
                 {Math.round(((currentStep + 1) / steps.length) * 100)}%
               </span>
             </div>
             <div className="w-full glass-input rounded-full h-2">
               <div 
-                className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full transition-all duration-500 shadow-lg"
+                className="bg-white h-2 rounded-full transition-all duration-500"
                 style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
               />
             </div>
@@ -280,10 +280,10 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
           {/* Step content */}
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="glass-card p-3 rounded-full border border-orange-400/30">
-                <Icon className="h-6 w-6 text-orange-400" />
+              <div className="glass-card p-3 rounded-full border border-white/20">
+                <Icon className="h-6 w-6 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white text-white-glow">{currentStepData.title}</h2>
+              <h2 className="text-2xl font-bold text-white">{currentStepData.title}</h2>
             </div>
             
             {currentStepData.content}
@@ -306,7 +306,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 <Button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
+                  className="bg-white text-black"
                 >
                   {isSubmitting ? (
                     <>
@@ -329,7 +329,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                     (currentStep === 2 && !formData.deliveryCity) ||
                     (currentStep === 3 && (!formData.name || !formData.phone))
                   }
-                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white"
+                  className="bg-white text-black"
                 >
                   Далее
                   <ArrowRight className="ml-2 h-4 w-4" />

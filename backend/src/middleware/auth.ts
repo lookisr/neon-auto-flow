@@ -43,8 +43,8 @@ export const requireAdmin = async (req: Request, res: Response, next: NextFuncti
       return res.status(403).json({ 
         success: false, 
         message: 'Admin or moderator access required' 
-      });
-    }
+    });
+  }
     
     next();
   });

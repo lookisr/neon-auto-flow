@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -142,7 +141,10 @@ export default {
 				'neon-green': '0 0 20px rgba(34, 197, 94, 0.5)',
 				'neon-orange': '0 0 20px rgba(249, 115, 22, 0.5)',
 				'neon-blue': '0 0 20px rgba(59, 130, 246, 0.5)'
-			}
+			},
+			fontFamily: {
+				sans: ['Montserrat'],
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
