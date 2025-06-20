@@ -152,7 +152,7 @@ const AdvertisementDetailModal = ({ advertisement, isOpen, onClose, onEdit, onDe
             
             {/* Иконки статуса - позиционируем их рядом */}
             <div className="absolute top-4 left-4 flex flex-col gap-2">
-              {advertisement.user && advertisement.user.email === 'company@kps-auto.ru' && (
+              {advertisement.user && advertisement.user.email === 'company@kpsauto.ru' && (
                 <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                   ✓ Проверено
                 </div>

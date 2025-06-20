@@ -1,6 +1,8 @@
-import { Phone, Car, DollarSign, CheckCircle } from "lucide-react";
+import { Phone, Car, DollarSign, CheckCircle, ArrowDown } from "lucide-react";
+import { useRef } from "react";
 
-const HowItWorksSection = () => {
+const HowItWorksSection = ({ onScrollToLead }: { onScrollToLead?: () => void }) => {
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const steps = [
     {
       icon: Phone,
@@ -68,7 +70,15 @@ const HowItWorksSection = () => {
             <p className="text-gray-200 mb-6">
               Оставьте заявку прямо сейчас и получите предложение в течение 5 минут
             </p>
-            <div className="w-32 h-1 bg-white mx-auto rounded-full animate-pulse-slow"></div>
+            <button
+              ref={buttonRef}
+              onClick={onScrollToLead}
+              className="mt-4 px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg shadow transition-all duration-200 hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-white/50 flex items-center justify-center mx-auto"
+            >
+              Оставить заявку
+              <ArrowDown className="ml-2 h-5 w-5 animate-bounce" />
+            </button>
+            <div className="w-32 h-1 bg-white mx-auto rounded-full animate-pulse-slow mt-6"></div>
           </div>
         </div>
       </div>
