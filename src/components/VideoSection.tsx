@@ -5,10 +5,14 @@ const VideoSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [volume, setVolume] = useState(0);
+  const [lastVolume, setLastVolume] = useState(0.5); // Сохраняем последнее значение громкости
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    // Устанавливаем начальное состояние Mute через JS
+    video.muted = true;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -38,25 +42,80 @@ const VideoSection = () => {
   }, []);
 
   const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(!isMuted);
+    if (!videoRef.current) return;
+    const video = videoRef.current;
+
+    const currentlyMuted = !isMuted; // Новое состояние
+    setIsMuted(currentlyMuted);
+    video.muted = currentlyMuted;
+
+    if (currentlyMuted) {
+      // Если выключаем звук, сохраняем текущую громкость и ставим 0
+      setLastVolume(volume);
+      setVolume(0);
+    } else {
+      // Если включаем, восстанавливаем последнюю громкость (или ставим дефолтную)
+      const newVolume = lastVolume > 0 ? lastVolume : 0.5;
+      setVolume(newVolume);
+      video.volume = newVolume;
     }
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!videoRef.current) return;
     const newVolume = parseFloat(e.target.value);
-    setVolume(newVolume);
     
-    if (videoRef.current) {
-      videoRef.current.volume = newVolume;
-      videoRef.current.muted = newVolume === 0;
-      setIsMuted(newVolume === 0);
+    setVolume(newVolume);
+    videoRef.current.volume = newVolume;
+
+    if (newVolume > 0) {
+      // Если громкость больше 0, видео не должно быть "заглушено"
+      if (isMuted) {
+        setIsMuted(false);
+        videoRef.current.muted = false;
+      }
+      setLastVolume(newVolume);
+    } else {
+      // Если громкость 0, включаем "заглушение"
+      if (!isMuted) {
+        setIsMuted(true);
+        videoRef.current.muted = true;
+      }
     }
   };
 
+  // Добавим стили прямо в компонент для адаптивности
+  const volumeSliderStyles = `
+    .volume-slider-vertical {
+      width: 128px;
+      height: 32px;
+      cursor: pointer;
+      background: transparent;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      z-index: 10;
+    }
+    @media (max-width: 640px) {
+      .volume-slider-vertical {
+        width: 40px !important;
+        height: 24px;
+      }
+      .volume-panel-mobile {
+        min-width: 40px !important;
+        max-width: 56px !important;
+        padding: 8px !important;
+      }
+      .video-volume-gap {
+        gap: 8px !important;
+      }
+    }
+  `;
+
   return (
     <section className="py-20 px-4">
+      <style>{volumeSliderStyles}</style>
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -68,7 +127,7 @@ const VideoSection = () => {
         </div>
         
         <div className="relative max-w-4xl mx-auto">
-          <div className="flex w-full items-center justify-center gap-0 md:gap-8">
+          <div className="flex w-full items-center justify-center gap-0 md:gap-8 video-volume-gap">
             {/* Видео строго по центру, прежний размер */}
             <div className="flex-1 flex justify-center">
               <div className="glass-card rounded-3xl p-4 aspect-video relative overflow-hidden w-full max-w-4xl mx-auto">
@@ -76,7 +135,6 @@ const VideoSection = () => {
                 <video
                   ref={videoRef}
                   className="w-full h-full rounded-2xl shadow-2xl object-cover"
-                  muted
                   loop
                   preload="metadata"
                   poster="/videos/car_buyout_poster.jpg"
@@ -93,7 +151,7 @@ const VideoSection = () => {
             </div>
 
             {/* Ползунок громкости */}
-            <div className="glass-card rounded-2xl p-6 flex flex-col items-center gap-4 min-w-[80px] ml-0 md:ml-8">
+            <div className="glass-card rounded-2xl p-6 flex flex-col items-center gap-4 min-w-[80px] ml-0 md:ml-8 volume-panel-mobile">
               {/* Иконка звука */}
               <button
                 onClick={toggleMute}
@@ -130,17 +188,6 @@ const VideoSection = () => {
                     value={volume}
                     onChange={handleVolumeChange}
                     className="volume-slider-vertical"
-                    style={{
-                      width: '128px',
-                      height: '32px',
-                      cursor: 'pointer',
-                      background: 'transparent',
-                      position: 'absolute',
-                      left: '50%',
-                      top: '50%',
-                      transform: 'translate(-50%, -50%) rotate(-90deg)',
-                      zIndex: 10
-                    }}
                   />
                 </div>
               </div>

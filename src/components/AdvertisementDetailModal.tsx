@@ -19,8 +19,8 @@ const AdvertisementDetailModal = ({ advertisement, isOpen, onClose, onEdit, onDe
 
   console.log('🔧 [DEBUG] AdvertisementDetailModal props:', { advertisement, isOpen });
 
-  // Проверяем, является ли пользователь админом или модератором
-  const isAdmin = user?.role === 'admin' || user?.role === 'moderator';
+  // Проверяем, является ли пользователь компанией
+  const isCompany = user?.email === 'company@kpsauto.ru';
 
   if (!advertisement) {
     console.log('🔧 [DEBUG] AdvertisementDetailModal: No advertisement provided');
@@ -61,11 +61,11 @@ const AdvertisementDetailModal = ({ advertisement, isOpen, onClose, onEdit, onDe
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="glass-modal max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <DialogContent className="glass-modal max-w-6xl w-full mx-1 sm:mx-4 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto p-2 sm:p-6 rounded-lg sm:rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-white flex items-center justify-between text-white-glow">
+          <DialogTitle className="text-2xl font-bold text-white flex items-center justify-between">
             <span>{advertisement.brand} {advertisement.carModel}</span>
-            {isAdmin && (
+            {isCompany && (
               <div className="flex gap-2">
                 <Button
                   variant="outline"
@@ -89,10 +89,17 @@ const AdvertisementDetailModal = ({ advertisement, isOpen, onClose, onEdit, onDe
                       onDelete(advertisement);
                     }
                   }}
-                  className="bg-red-500/20 text-red-400 border-red-400/30 hover:bg-red-500/30"
+                  className="bg-red-500/20 text-red-400 border-red-400/30 hover:bg-red-500/30 relative"
                 >
-                  <Trash2 className="h-4 w-4 mr-2" />
-                  Удалить
+                  <span className="flex items-center">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    <span className="hidden sm:inline">Удалить</span>
+                  </span>
+                  <span className="absolute right-2 top-1 sm:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </span>
                 </Button>
               </div>
             )}
@@ -146,15 +153,22 @@ const AdvertisementDetailModal = ({ advertisement, isOpen, onClose, onEdit, onDe
               )}
             </div>
             
-            <div className="absolute top-4 right-4 glass-card px-4 py-2 rounded-full text-xl font-bold text-orange-400">
+            <div className="absolute top-4 right-4 glass-card px-4 py-2 rounded-full text-xl font-bold text-white">
               {advertisement.price.toLocaleString('ru-RU')} ₽
             </div>
             
             {/* Иконки статуса - позиционируем их рядом */}
             <div className="absolute top-4 left-4 flex flex-col gap-2">
-              {advertisement.user && advertisement.user.email === 'company@kpsauto.ru' && (
-                <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  ✓ Проверено
+              {/* ВРЕМЕННО: выводим email пользователя для отладки */}
+              {/* {advertisement.user && (
+                <div className="bg-yellow-500 text-black px-2 py-1 rounded text-xs mb-1">
+                  {advertisement.user.email}
+                </div>
+              )} */}
+              {advertisement.user && (advertisement.user.role === 'admin' || advertisement.user.role === 'moderator') && (
+                <div className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1 shadow-lg z-50">
+                  <CheckCircle className="mr-1" size={16} />
+                  Проверено
                 </div>
               )}
               {advertisement.isDamaged && (

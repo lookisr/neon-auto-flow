@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Car, Filter, MapPin, Search, Loader2, Plus, Shield, AlertCircle, Phone, X } from "lucide-react";
+import { Calendar, Car, Filter, MapPin, Search, Loader2, Plus, Shield, AlertCircle, Phone, X, CheckCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAdvertisements } from "../hooks/useAdvertisements";
 import { useAuth } from "../contexts/AuthContext";
@@ -17,11 +17,24 @@ import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { apiService } from "../lib/api";
 import { useToast } from "@/hooks/use-toast";
+import { BRANDS } from "@/constants/brands";
 
 interface ListingsPageProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const CarCardSkeleton = () => (
+  <div className="glass-card rounded-xl p-4 animate-pulse">
+    <div className="bg-neutral-700 h-48 rounded-lg mb-4"></div>
+    <div className="space-y-3">
+      <div className="h-4 bg-neutral-700 rounded w-3/4"></div>
+      <div className="h-4 bg-neutral-700 rounded w-1/2"></div>
+      <div className="h-4 bg-neutral-700 rounded w-full"></div>
+      <div className="h-4 bg-neutral-700 rounded w-2/3"></div>
+    </div>
+  </div>
+);
 
 const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -163,7 +176,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
         setPendingCount(count);
       } catch (error) {
         console.log('🔧 [DEBUG] Error fetching pending count:', error);
-        // Для админов показываем ошибку в toast
+        // Для компаний показываем ошибку в toast
         if (error instanceof Error) {
           toast({
             title: "Ошибка",
@@ -222,41 +235,50 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
     }
   }, [isAdmin]);
 
-  // Фильтрация объявлений
-  const filteredAdvertisements = advertisements.filter((ad) => {
-    const matchesSearch = ad.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         ad.carModel.toLowerCase().includes(searchQuery.toLowerCase());
+  // Фильтрация и сортировка объявлений
+  const processedAdvertisements = advertisements
+    .slice() // Создаем копию, чтобы не мутировать исходный массив
+    .sort((a, b) => {
+      const aIsCompany = a.user?.email === 'company@kpsauto.ru';
+      const bIsCompany = b.user?.email === 'company@kpsauto.ru';
+      if (aIsCompany && !bIsCompany) return -1; // a (компания) раньше b (не компания)
+      if (!aIsCompany && bIsCompany) return 1;  // b (компания) раньше a (не компания)
+      return 0; // Порядок не важен, если оба от компании или оба не от компании
+    })
+    .filter((ad) => {
+      const matchesSearch = ad.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           ad.carModel.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesBrand = selectedBrand === "all" || ad.brand.toLowerCase() === selectedBrand.toLowerCase();
+      const matchesBrand = selectedBrand === "all" || ad.brand.toLowerCase() === selectedBrand.toLowerCase();
 
-    let matchesPrice = true;
-    if (priceRange !== "all") {
-      const price = ad.price;
-      switch (priceRange) {
-        case "under500k":
-          matchesPrice = price < 500000;
-          break;
-        case "500k-1m":
-          matchesPrice = price >= 500000 && price < 1000000;
-          break;
-        case "1m-2m":
-          matchesPrice = price >= 1000000 && price < 2000000;
-          break;
-        case "over2m":
-          matchesPrice = price >= 2000000;
-          break;
+      let matchesPrice = true;
+      if (priceRange !== "all") {
+        const price = ad.price;
+        switch (priceRange) {
+          case "under500k":
+            matchesPrice = price < 500000;
+            break;
+          case "500k-1m":
+            matchesPrice = price >= 500000 && price < 1000000;
+            break;
+          case "1m-2m":
+            matchesPrice = price >= 1000000 && price < 2000000;
+            break;
+          case "over2m":
+            matchesPrice = price >= 2000000;
+            break;
+        }
       }
-    }
 
-    let matchesSeller = true;
-    if (sellerType === 'company') {
-      matchesSeller = ad.user && ad.user.role === 'admin';
-    } else if (sellerType === 'private') {
-      matchesSeller = ad.user && ad.user.role === 'user';
-    }
-    
-    return matchesSearch && matchesBrand && matchesPrice && matchesSeller;
-  });
+      let matchesSeller = true;
+      if (sellerType === 'company') {
+        matchesSeller = ad.user && ad.user.role === 'admin';
+      } else if (sellerType === 'private') {
+        matchesSeller = ad.user && ad.user.role === 'user';
+      }
+      
+      return matchesSearch && matchesBrand && matchesPrice && matchesSeller;
+    });
 
   // Компонент карточки автомобиля
   const CarCard = ({ ad }: { ad: Advertisement }) => {
@@ -268,29 +290,33 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
 
     return (
       <div 
-        className="bg-black review-glass-border rounded-2xl p-4 cursor-pointer flex flex-col transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+        className="bg-black review-glass-border rounded-2xl cursor-pointer flex flex-col transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden"
         onClick={() => {
           setSelectedAdvertisement(ad);
           setIsDetailModalOpen(true);
         }}
       >
-        <div className="relative mb-4">
-          {ad.photoUrls && ad.photoUrls.length > 0 ? (
-            <div className="review-carbon-frame rounded-xl p-1 mb-2">
-              <img
-                src={ad.photoUrls[0]}
-          alt={`${ad.brand} ${ad.carModel}`}
-                className="w-full h-48 object-contain rounded-xl"
-              />
-            </div>
+        <div className="relative w-full h-48">
+          {ad.photoUrls && ad.photoUrls.length > 0 && ad.photoUrls[0] !== '/placeholder.svg' ? (
+            <img
+              src={ad.photoUrls[0]}
+              alt={`${ad.brand} ${ad.carModel}`}
+              className="w-full h-full object-cover"
+            />
           ) : (
-            <div className="review-carbon-frame rounded-xl p-1 mb-2">
-              <div className="w-full h-48 bg-neutral-800 rounded-xl flex items-center justify-center">
-                <Car className="h-16 w-16 text-neutral-500" />
-              </div>
+            <div className="w-full h-full bg-gradient-to-br from-neutral-900 to-neutral-800 flex flex-col items-center justify-center text-neutral-600">
+              <Car className="h-16 w-16" />
+              <p className="mt-2 text-lg font-bold">KPS AUTO</p>
             </div>
           )}
           
+          {(ad.user?.role === 'admin' || ad.user?.role === 'moderator') && (
+            <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+              <CheckCircle size={12} />
+              <span>Проверено</span>
+            </div>
+          )}
+
           {/* Статус объявления */}
           <div className="absolute top-2 right-2">
             {ad.status === 'pending' && (
@@ -307,45 +333,86 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
 
           <div className="absolute bottom-2 right-2 px-3 py-1 rounded-full text-lg font-bold text-white bg-black/70 border border-white/10">
             {ad.price.toLocaleString()} ₽
+          </div>
         </div>
-      </div>
       
-        <div className="space-y-3">
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="text-xl font-bold text-white mb-1">
-          {ad.brand} {ad.carModel}
-        </h3>
-              <p className="text-neutral-400 text-sm">{ad.year} год</p>
-          </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 text-sm text-neutral-400">
-            <div className="flex items-center gap-1">
-              <Calendar className="h-4 w-4" />
-              <span>{ad.year}</span>
-          </div>
-            <div className="flex items-center gap-1">
-              <MapPin className="h-4 w-4" />
-              <span>{ad.mileage.toLocaleString()} км</span>
+        <div className="p-4 flex flex-col flex-grow">
+          <div className="flex-grow">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-1">
+                  {ad.brand} {ad.carModel}
+                </h3>
+                <p className="text-neutral-400 text-sm">{ad.year} год</p>
+              </div>
             </div>
-        </div>
-        
-          <p className="text-neutral-300 line-clamp-2 text-sm">
-            {ad.description}
-          </p>
+
+            <div className="grid grid-cols-2 gap-2 text-sm text-neutral-400 mt-3">
+              <div className="flex items-center gap-1">
+                <Calendar className="h-4 w-4" />
+                <span>{ad.year}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <MapPin className="h-4 w-4" />
+                <span>{ad.mileage.toLocaleString()} км</span>
+              </div>
+            </div>
+            
+            <p className="text-neutral-300 line-clamp-2 text-sm mt-3">
+              {ad.description}
+            </p>
+          </div>
 
           {/* Кнопка звонка */}
           <Button 
             onClick={handleCallClick}
-            className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold backdrop-blur-sm transition-all"
+            className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold backdrop-blur-sm transition-all mt-4"
           >
             <Phone className="mr-2 h-4 w-4" />
             Позвонить
-        </Button>
+          </Button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  const renderContent = () => {
+    if (isLoading) {
+      return Array.from({ length: 8 }).map((_, index) => <CarCardSkeleton key={index} />);
+    }
+
+    if (processedAdvertisements.length === 0) {
+      return (
+        <div className="glass-card rounded-xl p-6 text-center col-span-full">
+          <Car className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <p className="text-gray-200">Объявления не найдены</p>
+        </div>
+      );
+    }
+
+    if (sellerType === 'all') {
+      const companyAds = processedAdvertisements.filter(ad => ad.user?.email === 'company@kpsauto.ru');
+      const privateAds = processedAdvertisements.filter(ad => ad.user?.email !== 'company@kpsauto.ru');
+      
+      return (
+        <>
+          {companyAds.length > 0 && (
+            <>
+              <h2 className="text-2xl font-bold text-white col-span-full mt-8 mb-4">Предложения от KPS AUTO</h2>
+              {companyAds.map((ad) => <CarCard key={ad.id} ad={ad} />)}
+            </>
+          )}
+          {privateAds.length > 0 && (
+            <>
+              {/* <h2 className="text-2xl font-bold text-white col-span-full mt-8 mb-4">Частные объявления</h2> */}
+              {privateAds.map((ad) => <CarCard key={ad.id} ad={ad} />)}
+            </>
+          )}
+        </>
+      );
+    } else {
+      return processedAdvertisements.map((ad) => <CarCard key={ad.id} ad={ad} />);
+    }
   };
 
   if (isLoading) {
@@ -414,38 +481,38 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           <div className="absolute inset-0 overflow-y-auto">
             <div className="min-h-full w-full py-8">
               <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-                  <h1 className="text-4xl font-bold text-white">
-                    Объявления <span className="text-neutral-300">автомобилей</span>
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mb-8 gap-2 sm:gap-4">
+            <h1 className="text-4xl font-bold text-white text-center sm:text-left w-full sm:w-auto">
+              Объявления <span className="text-neutral-300">автомобилей</span>
             </h1>
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
               {isAuthenticated && (
                 <Button
                   onClick={() => setIsAddModalOpen(true)}
-                  className="bg-neutral-800 text-white hover:bg-neutral-700 border border-white/20 shadow-none"
+                  className="bg-neutral-800 text-white hover:bg-neutral-700 border border-white/20 shadow-none w-full sm:w-auto"
                 >
                   <Plus className="mr-2 h-4 w-4" />
                   Добавить объявление
                 </Button>
               )}
-                    {isAdmin && (
-                      <Button
-                        onClick={() => setIsModerationOpen(true)}
-                        className="listings-apply-btn flex items-center gap-2 relative"
-                      >
-                        <Shield className="mr-2 h-4 w-4" />
-                        Модерация
-                        {pendingCount > 0 && (
-                          <span className="absolute -top-2 -right-2 bg-neutral-700 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                            {pendingCount}
-                          </span>
-                        )}
+              {isAdmin && (
+                <Button
+                  onClick={() => setIsModerationOpen(true)}
+                  className="listings-apply-btn flex items-center gap-2 relative w-full sm:w-auto"
+                >
+                  <Shield className="mr-2 h-4 w-4" />
+                  Модерация
+                  {pendingCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-neutral-700 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                      {pendingCount}
+                    </span>
+                  )}
                 </Button>
               )}
               <Button 
                 onClick={onClose}
                 variant="outline" 
-                      className="glass-input text-white border-white/30 hover:bg-white/10"
+                className="glass-input text-white border-white/30 hover:bg-white/10 w-full sm:w-auto"
               >
                 Закрыть
               </Button>
@@ -453,8 +520,8 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           </div>
 
           {/* Фильтры */}
-                <div className="glass-card rounded-xl p-6 mb-8">
-                  <div className="flex justify-center gap-4 mb-6">
+                <div className="glass-card rounded-xl p-4 sm:p-6 mb-8">
+                  <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4 mb-6">
                     <button
                       className={`listings-filter-btn px-6 py-2 ${sellerType === 'all' ? 'active' : ''}`}
                       onClick={() => setSellerType('all')}
@@ -474,7 +541,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       Компании
                     </button>
                   </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
               <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input 
@@ -491,12 +558,11 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                 </SelectTrigger>
                       <SelectContent className="glass-modal">
                         <SelectItem value="all">Все марки</SelectItem>
-                  <SelectItem value="toyota">Toyota</SelectItem>
-                        <SelectItem value="honda">Honda</SelectItem>
-                  <SelectItem value="hyundai">Hyundai</SelectItem>
-                  <SelectItem value="kia">Kia</SelectItem>
-                        <SelectItem value="nissan">Nissan</SelectItem>
-                  <SelectItem value="mazda">Mazda</SelectItem>
+                        {BRANDS.map((brand) => (
+                          <SelectItem key={brand.value} value={brand.value.toLowerCase()}>
+                            {brand.label}
+                          </SelectItem>
+                        ))}
                 </SelectContent>
               </Select>
               
@@ -513,7 +579,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                 </SelectContent>
               </Select>
               
-                    <Button className="listings-apply-btn flex items-center justify-center gap-2">
+                    <Button className="listings-apply-btn flex items-center justify-center gap-2 w-full">
                 <Filter className="mr-2 h-4 w-4" />
                 Применить
               </Button>
@@ -521,18 +587,9 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
           </div>
 
                 {/* Список объявлений */}
-                {filteredAdvertisements.length === 0 ? (
-                  <div className="glass-card rounded-xl p-6 text-center">
-                    <Car className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-200">Объявления не найдены</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 px-2 sm:px-0">
+                  {renderContent()}
                 </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredAdvertisements.map((ad) => (
-                    <CarCard key={ad.id} ad={ad} />
-                  ))}
-                </div>
-              )}
               </div>
             </div>
           </div>
@@ -590,7 +647,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       id="brand"
                       value={editFormData.brand}
                       onChange={(e) => setEditFormData({...editFormData, brand: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !text-white"
                     />
                   </div>
                   
@@ -600,7 +657,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       id="carModel"
                       value={editFormData.carModel}
                       onChange={(e) => setEditFormData({...editFormData, carModel: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !text-white"
                     />
                   </div>
                 </div>

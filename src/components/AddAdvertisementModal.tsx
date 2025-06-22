@@ -9,6 +9,7 @@ import { apiService } from "../lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "../contexts/AuthContext";
 import { Loader2, X, Upload, Car, Calendar, DollarSign, Gauge, Users, Wrench, Fuel, Palette, AlertCircle, Plus, Camera } from "lucide-react";
+import { BRANDS } from "@/constants/brands";
 
 interface AddAdvertisementModalProps {
   isOpen: boolean;
@@ -113,6 +114,13 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
   const handleInputChange = (field: string, value: string) => {
     setFormData({...formData, [field]: value});
     // Очищаем ошибку поля при вводе
+    if (fieldErrors[field as keyof typeof fieldErrors]) {
+      setFieldErrors({...fieldErrors, [field]: undefined});
+    }
+  };
+
+  const handleSelectChange = (field: string, value: string) => {
+    setFormData({...formData, [field]: value});
     if (fieldErrors[field as keyof typeof fieldErrors]) {
       setFieldErrors({...fieldErrors, [field]: undefined});
     }
@@ -271,58 +279,63 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="glass-modal max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <DialogContent className="glass-modal max-w-4xl w-full mx-2 sm:mx-4 max-h-[90vh] overflow-y-auto p-2 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-3xl font-bold text-white text-center text-white-glow">
+          <DialogTitle className="text-3xl font-bold text-white text-center">
             Добавить объявление
           </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Основная информация */}
-          <div className="glass-card rounded-xl p-6">
+          <div className="glass-card rounded-xl p-2 sm:p-6">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <Car className="h-5 w-5 text-orange-400" />
               Основная информация
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="brand" className="text-white font-medium">
-                  Марка автомобиля *
+                <Label htmlFor="brand" className="text-white/80 flex items-center gap-2">
+                  <Car size={16} className="text-white/50"/> Марка
                 </Label>
-                <Input
-                  id="brand"
-                  value={formData.brand}
-                  onChange={(e) => handleInputChange('brand', e.target.value)}
-                  className="glass-input text-white placeholder-gray-300"
-                  placeholder="Например: Toyota"
-                  disabled={isSubmitting}
-                />
-                {fieldErrors.brand && (
-                  <p className="text-red-400 text-sm">{fieldErrors.brand}</p>
-                )}
+                <Select 
+                  value={formData.brand} 
+                  onValueChange={(value) => handleSelectChange('brand', value)}
+                >
+                  <SelectTrigger 
+                    id="brand" 
+                    className={`glass-input text-white ${fieldErrors.brand ? 'border-red-500' : ''}`}
+                  >
+                    <SelectValue placeholder="Выберите марку" />
+                  </SelectTrigger>
+                  <SelectContent className="glass-modal">
+                    {BRANDS.map((brand) => (
+                      <SelectItem key={brand.value} value={brand.value}>
+                        {brand.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {fieldErrors.brand && <p className="text-red-400 text-sm mt-1">{fieldErrors.brand}</p>}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="model" className="text-white font-medium">
-                  Модель *
+                <Label htmlFor="model" className="text-white/80 flex items-center gap-2">
+                  <Car size={16} className="text-white/50"/> Модель
                 </Label>
                 <Input
                   id="model"
                   value={formData.model}
                   onChange={(e) => handleInputChange('model', e.target.value)}
-                  className="glass-input text-white placeholder-gray-300"
-                  placeholder="Например: Camry"
-                  disabled={isSubmitting}
+                  placeholder="Например, Camry"
+                  className={`glass-input text-white ${fieldErrors.model ? 'border-red-500' : ''}`}
                 />
-                {fieldErrors.model && (
-                  <p className="text-red-400 text-sm">{fieldErrors.model}</p>
-                )}
+                {fieldErrors.model && <p className="text-red-400 text-sm mt-1">{fieldErrors.model}</p>}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="year" className="text-white font-medium">
+                <Label htmlFor="year" className="text-neutral-300 font-medium">
                   Год выпуска *
                 </Label>
                 <Input
@@ -340,7 +353,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="price" className="text-white font-medium">
+                <Label htmlFor="price" className="text-neutral-300 font-medium">
                   Цена (₽) *
                 </Label>
                 <Input
@@ -360,15 +373,15 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
           </div>
 
           {/* Технические характеристики */}
-          <div className="glass-card rounded-xl p-6">
+          <div className="glass-card rounded-xl p-2 sm:p-6">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <Calendar className="h-5 w-5 text-blue-400" />
               Технические характеристики
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="engineVolume" className="text-white font-medium">
+                <Label htmlFor="engineVolume" className="text-neutral-300 font-medium">
                   Объем двигателя (л) *
                 </Label>
                 <Input
@@ -387,7 +400,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="mileage" className="text-white font-medium">
+                <Label htmlFor="mileage" className="text-neutral-300 font-medium">
                   Пробег (км) *
                 </Label>
                 <Input
@@ -405,7 +418,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="ownersCount" className="text-white font-medium">
+                <Label htmlFor="ownersCount" className="text-neutral-300 font-medium">
                   Количество владельцев *
                 </Label>
                 <Input
@@ -423,7 +436,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="transmission" className="text-white font-medium">
+                <Label htmlFor="transmission" className="text-neutral-300 font-medium">
                   Коробка передач
                 </Label>
                 <Select value={formData.transmission} onValueChange={(value) => handleInputChange('transmission', value)}>
@@ -440,7 +453,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="fuelType" className="text-white font-medium">
+                <Label htmlFor="fuelType" className="text-neutral-300 font-medium">
                   Тип топлива
                 </Label>
                 <Select value={formData.fuelType} onValueChange={(value) => handleInputChange('fuelType', value)}>
@@ -458,7 +471,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="color" className="text-white font-medium">
+                <Label htmlFor="color" className="text-neutral-300 font-medium">
                   Цвет *
                 </Label>
                 <Input
@@ -476,7 +489,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
             </div>
 
             <div className="mt-6 space-y-2">
-              <Label htmlFor="isDamaged" className="text-white font-medium">
+              <Label htmlFor="isDamaged" className="text-neutral-300 font-medium">
                 Состояние
               </Label>
               <Select value={formData.isDamaged} onValueChange={(value) => handleInputChange('isDamaged', value)}>
@@ -492,9 +505,9 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
           </div>
 
           {/* Описание */}
-          <div className="glass-card rounded-xl p-6">
+          <div className="glass-card rounded-xl p-2 sm:p-6">
             <div className="space-y-2">
-              <Label htmlFor="description" className="text-white font-medium">
+              <Label htmlFor="description" className="text-neutral-300 font-medium">
                 Описание *
               </Label>
               <Textarea
@@ -512,9 +525,9 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
           </div>
 
           {/* Контакты */}
-          <div className="glass-card rounded-xl p-6">
+          <div className="glass-card rounded-xl p-2 sm:p-6">
             <div className="space-y-2">
-              <Label htmlFor="contacts" className="text-white font-medium">
+              <Label htmlFor="contacts" className="text-neutral-300 font-medium">
                 Контактная информация *
               </Label>
               <Input
@@ -532,7 +545,7 @@ const AddAdvertisementModal = ({ isOpen, onClose, onAdvertisementCreated }: AddA
           </div>
 
           {/* Фотографии */}
-          <div className="glass-card rounded-xl p-6">
+          <div className="glass-card rounded-xl p-2 sm:p-6">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <Camera className="h-5 w-5 text-green-400" />
               Фотографии автомобиля

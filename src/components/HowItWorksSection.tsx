@@ -73,7 +73,7 @@ const HowItWorksSection = ({ onScrollToLead }: { onScrollToLead?: () => void }) 
             <button
               ref={buttonRef}
               onClick={onScrollToLead}
-              className="mt-4 px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg shadow transition-all duration-200 hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-white/50 flex items-center justify-center mx-auto"
+              className="mt-4 px-8 py-3 rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50 flex items-center justify-center mx-auto"
             >
               Оставить заявку
               <ArrowDown className="ml-2 h-5 w-5 animate-bounce" />
