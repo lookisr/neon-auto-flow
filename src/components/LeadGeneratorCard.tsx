@@ -82,6 +82,12 @@ const LeadGeneratorCard = () => {
 
   return (
     <div className="glass-card rounded-2xl p-8 shadow-xl transition-all duration-500">
+      <style>{`
+        .glass-input::placeholder {
+          color: #a3a3a3 !important;
+          opacity: 1 !important;
+        }
+      `}</style>
       <div className="text-center mb-6">
         <div className="flex justify-center mb-4">
           <div className="p-3 bg-[#ff3333] rounded-full">
@@ -128,7 +134,7 @@ const LeadGeneratorCard = () => {
               value={formData.model}
               onChange={(e) => setFormData({...formData, model: e.target.value})}
               placeholder="Например, Camry"
-              className="glass-input text-white h-10"
+              className="glass-input text-white h-10 placeholder-gray-400"
               disabled={isSubmitting}
             />
           </div>
@@ -165,7 +171,7 @@ const LeadGeneratorCard = () => {
               value={formData.desiredPrice}
               onChange={(e) => setFormData({...formData, desiredPrice: e.target.value})}
               placeholder="Например, 1500000"
-              className="glass-input text-white"
+              className="glass-input text-white placeholder-gray-400"
               disabled={isSubmitting}
             />
           </div>
@@ -179,7 +185,7 @@ const LeadGeneratorCard = () => {
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               placeholder={COMPANY_PHONE_DISPLAY}
-              className="glass-input text-white"
+              className="glass-input text-white placeholder-gray-400"
               disabled={isSubmitting}
             />
           </div>

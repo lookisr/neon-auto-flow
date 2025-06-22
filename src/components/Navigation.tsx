@@ -38,6 +38,9 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
     { id: "contact", icon: Phone, label: "Контакты", onClick: handleContactClick },
   ];
 
+  const buttonClasses = "px-5 h-10 flex items-center justify-center rounded-xl bg-white text-black font-bold text-base shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50";
+  const mobileButtonClasses = "px-6 h-12 flex items-center justify-center rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50";
+
   return (
     <>
       <header
@@ -71,7 +74,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
             <li>
               <a
                 href={`tel:${COMPANY_PHONE}`}
-                className="ml-4 px-5 py-2 rounded-xl bg-white text-black font-bold text-base shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className={`ml-4 ${buttonClasses}`}
               >
                 Позвонить
               </a>
@@ -80,7 +83,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
               <li>
                 <button
                   onClick={() => setIsAuthModalOpen(true)}
-                  className="ml-2 px-5 py-2 rounded-xl bg-white text-black font-bold text-base shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className={`ml-2 ${buttonClasses}`}
                 >
                   Войти
                 </button>
@@ -90,7 +93,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="ml-2 px-5 py-2 rounded-xl bg-white text-black font-bold text-base shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className={`ml-2 ${buttonClasses}`}
                 >
                   Выйти
                 </button>
@@ -127,7 +130,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
                 <li>
                   <a
                     href={`tel:${COMPANY_PHONE}`}
-                    className="mt-2 px-6 py-3 rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    className={`mt-2 ${mobileButtonClasses}`}
                   >
                     Позвонить
                   </a>
@@ -136,7 +139,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
                   <li>
                     <button
                       onClick={() => setIsAuthModalOpen(true)}
-                      className="mt-2 px-6 py-3 rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                      className={`mt-2 ${mobileButtonClasses}`}
                     >
                       Войти
                     </button>
@@ -146,7 +149,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="mt-2 px-6 py-3 rounded-xl bg-white text-black font-bold text-lg shadow transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                      className={`mt-2 ${mobileButtonClasses}`}
                     >
                       Выйти
                     </button>

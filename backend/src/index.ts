@@ -22,6 +22,7 @@ console.log('🔧 [DEBUG] PORT:', process.env.PORT || 5000);
 console.log('🔧 [DEBUG] NODE_ENV:', process.env.NODE_ENV || 'development');
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 5000;
 
 console.log('🔧 [DEBUG] Express app created');

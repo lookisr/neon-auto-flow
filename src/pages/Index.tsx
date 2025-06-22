@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { FileText, Car as CarIcon, Zap } from "lucide-react";
+import { FileText, Car as CarIcon, Zap, Ship, MessageSquare } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import LeadGeneratorCard from "@/components/LeadGeneratorCard";
 import VideoSection from "@/components/VideoSection";
@@ -127,7 +127,7 @@ const Index = () => {
       {/* Hero Section */}
       <header className="pb-8 px-4 text-center">
         <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
-          КПС-АВТО
+          {COMPANY_NAME}
         </h1>
         <h2 className="text-2xl md:text-3xl font-medium text-gray-400 mb-8">
           Современный сервис для продажи и покупки автомобилей
@@ -160,6 +160,22 @@ const Index = () => {
             </p>
           </div>
           <button className={BUTTON_STYLE + " w-full h-14 mt-auto"} onClick={() => setIsKoreaWizardOpen(true)}>Заказать авто</button>
+        </div>
+        {/* New Listing Card */}
+        <div className={CARD_STYLE}>
+          <div className="flex-grow flex flex-col items-center w-full">
+            <div className="mb-4 bg-white/10 p-4 rounded-full border border-white/20">
+              <MessageSquare className="h-10 w-10 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold mb-2">Разместить объявление</h3>
+            <p className="text-gray-300 mb-4 text-center">
+              Хотите продать авто самостоятельно? Разместите объявление на нашей доске — это бесплатно!
+            </p>
+            <div className="flex-grow" />
+          </div>
+          <button className={BUTTON_STYLE + " w-full min-h-[56px] mt-auto text-center whitespace-nowrap break-words leading-tight sm:text-lg text-base"} onClick={() => setIsListingsOpen(true)}>
+            Разместить авто
+          </button>
         </div>
       </div>
       {/* Contact Form / Лидогенерация */}
@@ -259,7 +275,7 @@ const Index = () => {
       </section>
       <VideoSection />
       <ReviewsSection />
-      <HowItWorksSection />
+      <HowItWorksSection onScrollToLead={handleScrollToLead} />
       {/* Features Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
@@ -278,8 +294,8 @@ const Index = () => {
             
             <div className="text-center group">
               <div className="glass-card rounded-2xl p-8 mb-6 group-hover:scale-105 transition-all duration-300">
-                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-white font-bold text-2xl mb-4 mx-auto">
-                  🚗
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CarIcon className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4">Авто из Кореи</h3>
                 <p className="text-gray-300">
