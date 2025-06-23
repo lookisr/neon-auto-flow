@@ -32,9 +32,9 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   };
 
   const navItems = [
-    { id: "home", icon: Car, label: "Главная", onClick: handleHomeClick },
-    { id: "korea", icon: MapPin, label: "Авто из Кореи", onClick: onKoreaClick },
-    { id: "listings", icon: MessageSquare, label: "Объявления", onClick: onListingsClick },
+    { id: "home", icon: Car, label: "Главная", onClick: handleHomeClick, iconColor: "text-[#ff3333]" },
+    { id: "korea", icon: MapPin, label: "Авто из Кореи", onClick: onKoreaClick, iconColor: "text-[#ff9933]" },
+    { id: "listings", icon: MessageSquare, label: "Объявления", onClick: onListingsClick, iconColor: "text-[#33cc33]" },
     { id: "contact", icon: Phone, label: "Контакты", onClick: handleContactClick },
   ];
 
@@ -56,21 +56,25 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
           </a>
           {/* Десктоп-меню */}
           <ul className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <li key={item.id}>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <li key={item.id}>
                   <button
                     onClick={() => {
                       setActiveItem(item.id);
                       item.onClick?.();
                     }}
-                  className={`text-white text-lg font-medium transition-colors duration-200 hover:text-gray-300 px-2 py-1 rounded ${
-                    activeItem === item.id ? "text-gray-300" : ""
-                  }`}
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-white/10 ${
+                      activeItem === item.id ? "bg-white/5" : ""
+                    }`}
+                  >
+                    <Icon className={`h-5 w-5 ${item.iconColor || "text-white"}`} />
+                    <span className="text-white">{item.label}</span>
+                  </button>
+                </li>
+              );
+            })}
             <li>
               <a
                 href={`tel:${COMPANY_PHONE}`}
@@ -112,21 +116,25 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
           {mobileOpen && (
             <div className="absolute top-16 left-0 w-full bg-black/95 backdrop-blur-md border-b border-white/10 shadow-lg md:hidden animate-fade-in-up">
               <ul className="flex flex-col items-center gap-4 py-6">
-                {navItems.map((item) => (
-                  <li key={item.id}>
-                    <button
-                      onClick={() => {
-                        setActiveItem(item.id);
-                        item.onClick?.();
-                      }}
-                      className={`text-white text-xl font-medium transition-colors duration-200 hover:text-gray-300 px-2 py-1 rounded ${
-                        activeItem === item.id ? "text-gray-300" : ""
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  </li>
-                ))}
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.id}>
+                      <button
+                        onClick={() => {
+                          setActiveItem(item.id);
+                          item.onClick?.();
+                        }}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-white/10 ${
+                          activeItem === item.id ? "bg-white/5" : ""
+                        }`}
+                      >
+                        <Icon className={`h-5 w-5 ${item.iconColor || "text-white"}`} />
+                        <span className="text-white">{item.label}</span>
+                      </button>
+                    </li>
+                  );
+                })}
                 <li>
                   <a
                     href={`tel:${COMPANY_PHONE}`}

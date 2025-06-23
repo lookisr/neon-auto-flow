@@ -136,12 +136,12 @@ const Index = () => {
       {/* Cards */}
       <div className="container mx-auto max-w-4xl flex flex-col md:flex-row gap-8 mb-12 px-4 items-stretch">
         {/* Sell Car Card */}
-        <div className={CARD_STYLE}>
+        <div className={`${CARD_STYLE} bg-[#ff3333]/20`}>
           <div className="flex-grow flex flex-col items-center w-full">
-            <div className="mb-4 bg-white/10 p-4 rounded-full border border-white/20">
-              <FileText className="h-10 w-10 text-white" />
+            <div className="mb-4 bg-[#ff3333]/10 p-4 rounded-full border border-[#ff3333]/20">
+              <FileText className="h-10 w-10 text-[#ff3333]" />
             </div>
-            <h3 className="text-2xl font-bold mb-2">Продать своё авто</h3>
+            <h3 className="text-2xl font-bold mb-2 text-white">Продать своё авто</h3>
             <p className="text-gray-300 mb-4">
               Быстрое и безопасное оформление. Получите предложение за 5 минут и деньги сразу.
             </p>
@@ -149,12 +149,12 @@ const Index = () => {
           <button className={BUTTON_STYLE + " w-full h-14 mt-auto"} onClick={handleScrollToLead}>Продать авто</button>
         </div>
         {/* Import Car Card */}
-        <div className={CARD_STYLE}>
+        <div className={`${CARD_STYLE} bg-[#ff9933]/20`}>
           <div className="flex-grow flex flex-col items-center w-full">
-            <div className="mb-4 bg-white/10 p-4 rounded-full border border-white/20">
-              <CarIcon className="h-10 w-10 text-white" />
+            <div className="mb-4 bg-[#ff9933]/10 p-4 rounded-full border border-[#ff9933]/20">
+              <CarIcon className="h-10 w-10 text-[#ff9933]" />
             </div>
-            <h3 className="text-2xl font-bold mb-2">Привезти авто из Кореи</h3>
+            <h3 className="text-2xl font-bold mb-2 text-white">Привезти авто из Кореи</h3>
             <p className="text-gray-300 mb-4">
               Прямые поставки, прозрачные условия, полное сопровождение сделки.
             </p>
@@ -162,20 +162,18 @@ const Index = () => {
           <button className={BUTTON_STYLE + " w-full h-14 mt-auto"} onClick={() => setIsKoreaWizardOpen(true)}>Заказать авто</button>
         </div>
         {/* New Listing Card */}
-        <div className={CARD_STYLE}>
+        <div className={`${CARD_STYLE} bg-[#33cc33]/20`}>
           <div className="flex-grow flex flex-col items-center w-full">
-            <div className="mb-4 bg-white/10 p-4 rounded-full border border-white/20">
-              <MessageSquare className="h-10 w-10 text-white" />
+            <div className="mb-4 bg-[#33cc33]/10 p-4 rounded-full border border-[#33cc33]/20">
+              <MessageSquare className="h-10 w-10 text-[#33cc33]" />
             </div>
-            <h3 className="text-2xl font-bold mb-2">Разместить объявление</h3>
+            <h3 className="text-2xl font-bold mb-2 text-white">Разместить объявление</h3>
             <p className="text-gray-300 mb-4 text-center">
               Хотите продать авто самостоятельно? Разместите объявление на нашей доске — это бесплатно!
             </p>
             <div className="flex-grow" />
           </div>
-          <button className={BUTTON_STYLE + " w-full min-h-[56px] mt-auto text-center whitespace-nowrap break-words leading-tight sm:text-lg text-base"} onClick={() => setIsListingsOpen(true)}>
-            Разместить авто
-          </button>
+          <button className={BUTTON_STYLE + " w-full min-h-[56px] mt-auto text-center whitespace-nowrap break-words leading-tight sm:text-lg text-base"} onClick={() => setIsListingsOpen(true)}>Разместить авто</button>
         </div>
       </div>
       {/* Contact Form / Лидогенерация */}

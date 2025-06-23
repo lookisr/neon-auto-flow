@@ -212,6 +212,13 @@ input::placeholder, textarea::placeholder {
   outline: none;
   padding: 0;
   margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 10;
 }
 
 /* Webkit browsers (Chrome, Safari, Edge) */
@@ -221,17 +228,26 @@ input::placeholder, textarea::placeholder {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  border: 2px solid rgba(255, 255, 255, 0.9);
   background: repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px);
+  box-shadow: 
+    0 2px 8px rgba(0,0,0,0.25),
+    0 0 0 2px rgba(255,255,255,0.08) inset;
   display: block;
-  transition: box-shadow 0.2s, border 0.2s;
+  transition: all 0.2s ease;
   cursor: pointer;
+  transform: scale(0.95);
+  position: relative;
+  margin-top: -16px;
 }
+
 .volume-slider-vertical:focus::-webkit-slider-thumb,
 .volume-slider-vertical:hover::-webkit-slider-thumb {
-  border-color: #e0e0e0;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15) inset;
+  transform: scale(1);
+  border-color: #fff;
+  box-shadow: 
+    0 4px 16px rgba(0,0,0,0.35),
+    0 0 0 3px rgba(255,255,255,0.15) inset;
 }
 
 /* Firefox */
@@ -239,16 +255,25 @@ input::placeholder, textarea::placeholder {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  border: 2px solid rgba(255, 255, 255, 0.9);
   background: repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px);
-  transition: box-shadow 0.2s, border 0.2s;
+  box-shadow: 
+    0 2px 8px rgba(0,0,0,0.25),
+    0 0 0 2px rgba(255,255,255,0.08) inset;
+  transition: all 0.2s ease;
   cursor: pointer;
+  transform: scale(0.95);
+  position: relative;
+  margin-top: -16px;
 }
+
 .volume-slider-vertical:focus::-moz-range-thumb,
 .volume-slider-vertical:hover::-moz-range-thumb {
-  border-color: #e0e0e0;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15) inset;
+  transform: scale(1);
+  border-color: #fff;
+  box-shadow: 
+    0 4px 16px rgba(0,0,0,0.35),
+    0 0 0 3px rgba(255,255,255,0.15) inset;
 }
 
 /* IE/Edge */
@@ -256,30 +281,45 @@ input::placeholder, textarea::placeholder {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  border: 2px solid rgba(255, 255, 255, 0.9);
   background: repeating-linear-gradient(135deg, #232323 0 8px, #181818 8px 16px);
-  transition: box-shadow 0.2s, border 0.2s;
+  box-shadow: 
+    0 2px 8px rgba(0,0,0,0.25),
+    0 0 0 2px rgba(255,255,255,0.08) inset;
+  transition: all 0.2s ease;
   cursor: pointer;
+  transform: scale(0.95);
+  position: relative;
+  margin-top: -16px;
 }
+
 .volume-slider-vertical:focus::-ms-thumb,
 .volume-slider-vertical:hover::-ms-thumb {
-  border-color: #e0e0e0;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15) inset;
+  transform: scale(1);
+  border-color: #fff;
+  box-shadow: 
+    0 4px 16px rgba(0,0,0,0.35),
+    0 0 0 3px rgba(255,255,255,0.15) inset;
 }
 
 /* Remove default track styles for all browsers */
 .volume-slider-vertical::-webkit-slider-runnable-track {
   background: transparent;
-  border-radius: 8px;
+  border-radius: 9999px;
+  width: 100%;
+  height: 100%;
 }
+
 .volume-slider-vertical::-ms-fill-lower,
 .volume-slider-vertical::-ms-fill-upper {
   background: transparent;
 }
+
 .volume-slider-vertical::-moz-range-track {
   background: transparent;
-  border-radius: 8px;
+  border-radius: 9999px;
+  width: 100%;
+  height: 100%;
 }
 
 /* Hide outline for Firefox */

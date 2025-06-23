@@ -192,7 +192,7 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) =
               <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-neutral-800 text-white hover:bg-neutral-700 border border-white/20 shadow-none w-full"
+              className="bg-neutral-800 !text-white hover:bg-neutral-700 border border-white/20 shadow-none w-full"
               >
               {isSubmitting ? (
                   <>
