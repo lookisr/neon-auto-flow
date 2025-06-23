@@ -57,15 +57,15 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       icon: Car,
       content: (
         <div className="space-y-4">
-          <Label className="text-white text-lg font-medium">Выберите тип автомобиля</Label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Label className="text-white text-base sm:text-lg font-medium">Выберите тип автомобиля</Label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {["Седан", "SUV/Кроссовер", "Хэтчбек", "Минивен", "Спорткар", "Другое"].map((type) => (
               <button
                 key={type}
                 onClick={() => setFormData({...formData, carType: type})}
-                className={`p-4 rounded-xl border transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] ${
+                className={`p-3 sm:p-4 rounded-xl border transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] text-sm sm:text-base ${
                   formData.carType === type
-                    ? "scale-105"
+                    ? "scale-[1.02] sm:scale-105"
                     : ""
                 }`}
               >
@@ -81,8 +81,8 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       icon: DollarSign,
       content: (
         <div className="space-y-4">
-          <Label className="text-white text-lg font-medium">Укажите предполагаемый бюджет</Label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Label className="text-white text-base sm:text-lg font-medium">Укажите предполагаемый бюджет</Label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {[
               { label: "До 1 млн ₽", value: 1000000 },
               { label: "1-2 млн ₽", value: 2000000 },
@@ -94,9 +94,9 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <button
                 key={budget.label}
                 onClick={() => setFormData({...formData, budget: budget.value.toString()})}
-                className={`p-4 rounded-xl border transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] ${
+                className={`p-3 sm:p-4 rounded-xl border transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] text-sm sm:text-base ${
                   formData.budget === budget.value.toString()
-                    ? "scale-105"
+                    ? "scale-[1.02] sm:scale-105"
                     : ""
                 }`}
               >
@@ -112,7 +112,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
       icon: MapPin,
       content: (
         <div className="space-y-4">
-          <Label className="text-white text-lg font-medium">Как планируете получить автомобиль?</Label>
+          <Label className="text-white text-base sm:text-lg font-medium">Как планируете получить автомобиль?</Label>
           <div className="space-y-3">
             {[
               { label: "Доставка до двери (включена в стоимость)", city: "delivery_door" },
@@ -122,9 +122,9 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <button
                 key={delivery.label}
                 onClick={() => setFormData({...formData, deliveryCity: delivery.city})}
-                className={`w-full p-4 rounded-xl border text-left transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] ${
+                className={`w-full p-3 sm:p-4 rounded-xl border text-left transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] text-sm sm:text-base ${
                   formData.deliveryCity === delivery.city
-                    ? "scale-105"
+                    ? "scale-[1.02] sm:scale-105"
                     : ""
                 }`}
               >
@@ -257,10 +257,10 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="glass-modal max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div className="p-6">
+      <DialogContent className="glass-modal max-w-2xl w-[calc(100%-2rem)] mx-auto my-4 max-h-[calc(100vh-2rem)] overflow-y-auto p-0 sm:p-6 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="p-4 sm:p-6">
           {/* Progress bar */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <div className="flex justify-between items-center mb-4">
               <span className="text-sm text-gray-300">
                 Шаг {currentStep + 1} из {steps.length}
@@ -278,12 +278,12 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
           </div>
 
           {/* Step content */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="glass-card p-3 rounded-full border border-white/20">
-                <Icon className="h-6 w-6 text-white" />
+              <div className="glass-card p-2 sm:p-3 rounded-full border border-white/20">
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white">{currentStepData.title}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-white">{currentStepData.title}</h2>
             </div>
             
             {currentStepData.content}
@@ -291,12 +291,12 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
 
           {/* Navigation buttons */}
           {currentStep < steps.length - 1 && (
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-4">
               <Button
                 onClick={handlePrev}
                 disabled={currentStep === 0}
                 variant="outline"
-                className="glass-input text-white border-white/30 hover:bg-white/10"
+                className="glass-input text-white border-white/30 hover:bg-white/10 text-sm sm:text-base px-3 sm:px-4"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Назад
@@ -306,7 +306,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                 <Button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="bg-white text-black"
+                  className="bg-white text-black text-sm sm:text-base px-3 sm:px-4"
                 >
                   {isSubmitting ? (
                     <>
@@ -329,7 +329,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
                     (currentStep === 2 && !formData.deliveryCity) ||
                     (currentStep === 3 && (!formData.name || !formData.phone))
                   }
-                  className="bg-white text-black"
+                  className="bg-white text-black text-sm sm:text-base px-3 sm:px-4"
                 >
                   Далее
                   <ArrowRight className="ml-2 h-4 w-4" />
