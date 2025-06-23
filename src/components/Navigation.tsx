@@ -17,7 +17,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleHomeClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.href = '/';
   };
 
   const handleContactClick = () => {
@@ -33,7 +33,7 @@ const Navigation = ({ onKoreaClick, onListingsClick }: NavigationProps) => {
 
   const navItems = [
     { id: "home", icon: Car, label: "Главная", onClick: handleHomeClick, iconColor: "text-[#ff3333]" },
-    { id: "korea", icon: MapPin, label: "Авто из Кореи", onClick: onKoreaClick, iconColor: "text-[#ff9933]" },
+    { id: "korea", icon: MapPin, label: "Авто из Кореи", onClick: () => window.location.href = '/korea-cars', iconColor: "text-[#ff9933]" },
     { id: "listings", icon: MessageSquare, label: "Объявления", onClick: onListingsClick, iconColor: "text-[#33cc33]" },
     { id: "contact", icon: Phone, label: "Контакты", onClick: handleContactClick },
   ];

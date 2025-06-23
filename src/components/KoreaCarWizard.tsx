@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,11 +9,11 @@ import { useToast } from "@/hooks/use-toast";
 import { COMPANY_PHONE, COMPANY_PHONE_DISPLAY } from "../config/constants";
 
 interface KoreaCarWizardProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
+const KoreaCarWizard = ({ onClose }: KoreaCarWizardProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,7 +47,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
     // Сбрасываем форму при закрытии
     handleResetForm();
     // Закрываем модальное окно
-    onClose();
+    if (typeof onClose === 'function') onClose();
   };
 
   const steps = [
@@ -256,90 +255,88 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
   const Icon = currentStepData.icon;
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="glass-modal max-w-2xl w-[calc(100%-2rem)] mx-auto my-4 max-h-[calc(100vh-2rem)] overflow-y-auto p-0 sm:p-6 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="p-4 sm:p-6">
-          {/* Progress bar */}
-          <div className="mb-6 sm:mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-sm text-gray-300">
-                Шаг {currentStep + 1} из {steps.length}
-              </span>
-              <span className="text-sm text-white font-medium">
-                {Math.round(((currentStep + 1) / steps.length) * 100)}%
-              </span>
-            </div>
-            <div className="w-full glass-input rounded-full h-2">
-              <div 
-                className="bg-white h-2 rounded-full transition-all duration-500"
-                style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-              />
-            </div>
+    <div className="glass-modal max-w-2xl w-full mx-auto my-4 max-h-[calc(100vh-2rem)] overflow-y-auto p-0 sm:p-6 rounded-3xl min-h-[520px]">
+      <div className="p-4 sm:p-6">
+        {/* Progress bar */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-sm text-gray-300">
+              Шаг {currentStep + 1} из {steps.length}
+            </span>
+            <span className="text-sm text-white font-medium">
+              {Math.round(((currentStep + 1) / steps.length) * 100)}%
+            </span>
           </div>
-
-          {/* Step content */}
-          <div className="mb-6 sm:mb-8">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="glass-card p-2 sm:p-3 rounded-full border border-white/20">
-                <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white">{currentStepData.title}</h2>
-            </div>
-            
-            {currentStepData.content}
+          <div className="w-full glass-input rounded-full h-2">
+            <div 
+              className="bg-white h-2 rounded-full transition-all duration-500"
+              style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+            />
           </div>
-
-          {/* Navigation buttons */}
-          {currentStep < steps.length - 1 && (
-            <div className="flex justify-between gap-4">
-              <Button
-                onClick={handlePrev}
-                disabled={currentStep === 0}
-                variant="outline"
-                className="glass-input text-white border-white/30 hover:bg-white/10 text-sm sm:text-base px-3 sm:px-4"
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Назад
-              </Button>
-              
-              {currentStep === steps.length - 2 ? (
-                <Button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="bg-white text-black text-sm sm:text-base px-3 sm:px-4"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Отправка...
-                    </>
-                  ) : (
-                    <>
-                      Отправить заявку
-                      <CheckCircle className="ml-2 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleNext}
-                  disabled={
-                    (currentStep === 0 && !formData.carType) ||
-                    (currentStep === 1 && !formData.budget) ||
-                    (currentStep === 2 && !formData.deliveryCity) ||
-                    (currentStep === 3 && (!formData.name || !formData.phone))
-                  }
-                  className="bg-white text-black text-sm sm:text-base px-3 sm:px-4"
-                >
-                  Далее
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              )}
-            </div>
-          )}
         </div>
-      </DialogContent>
-    </Dialog>
+
+        {/* Step content */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="glass-card p-2 sm:p-3 rounded-full border border-white/20">
+              <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">{currentStepData.title}</h2>
+          </div>
+          
+          {currentStepData.content}
+        </div>
+
+        {/* Navigation buttons */}
+        {currentStep < steps.length - 1 && (
+          <div className="flex justify-between gap-4">
+            <Button
+              onClick={handlePrev}
+              disabled={currentStep === 0}
+              variant="outline"
+              className="glass-input text-white border-white/30 hover:bg-white/10 text-sm sm:text-base px-3 sm:px-4"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Назад
+            </Button>
+            
+            {currentStep === steps.length - 2 ? (
+              <Button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="bg-white text-black text-sm sm:text-base px-3 sm:px-4"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Отправка...
+                  </>
+                ) : (
+                  <>
+                    Отправить заявку
+                    <CheckCircle className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNext}
+                disabled={
+                  (currentStep === 0 && !formData.carType) ||
+                  (currentStep === 1 && !formData.budget) ||
+                  (currentStep === 2 && !formData.deliveryCity) ||
+                  (currentStep === 3 && (!formData.name || !formData.phone))
+                }
+                className="bg-white text-black text-sm sm:text-base px-3 sm:px-4"
+              >
+                Далее
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

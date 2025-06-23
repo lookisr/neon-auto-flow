@@ -4,7 +4,6 @@ import Navigation from "@/components/Navigation";
 import LeadGeneratorCard from "@/components/LeadGeneratorCard";
 import VideoSection from "@/components/VideoSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
-import KoreaCarWizard from "@/components/KoreaCarWizard";
 import ListingsPage from "@/components/ListingsPage";
 import ReviewsSection from "@/components/ReviewsSection";
 import { COMPANY_PHONE, COMPANY_PHONE_DISPLAY, COMPANY_EMAIL, COMPANY_ADDRESS, COMPANY_NAME } from "@/config/constants";
@@ -14,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { apiService } from "@/lib/api";
 import CarHeadlightGlowOverlay from "@/components/CarHeadlightGlowOverlay";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import KoreaCarWizard from "@/components/KoreaCarWizard";
 
 const CARD_STYLE =
   "glass-card border border-white/10 rounded-2xl shadow-xl p-8 flex flex-col h-full justify-between items-center text-center transition-all duration-300 hover:shadow-2xl hover:border-white/30 flex-1 min-h-[420px]";
@@ -21,7 +22,7 @@ const BUTTON_STYLE =
   "mt-6 px-6 py-3 rounded-xl bg-white text-black font-bold text-lg transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50";
 
 const Index = () => {
-  const [isKoreaWizardOpen, setIsKoreaWizardOpen] = useState(false);
+  const [isKoreaModalOpen, setIsKoreaModalOpen] = useState(false);
   const [isListingsOpen, setIsListingsOpen] = useState(false);
   const [leadForm, setLeadForm] = useState({
     brand: "",
@@ -100,7 +101,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      <Navigation onKoreaClick={() => setIsKoreaWizardOpen(true)} onListingsClick={() => setIsListingsOpen(true)} />
+      <Navigation onKoreaClick={() => setIsKoreaModalOpen(true)} onListingsClick={() => setIsListingsOpen(true)} />
       {/* Central Car Image — seamless with black background */}
       <div className="flex justify-center items-center pt-40 pb-12 px-4 bg-black">
         <div
@@ -159,7 +160,7 @@ const Index = () => {
               Прямые поставки, прозрачные условия, полное сопровождение сделки.
             </p>
           </div>
-          <button className={BUTTON_STYLE + " w-full h-14 mt-auto"} onClick={() => setIsKoreaWizardOpen(true)}>Заказать авто</button>
+          <button className={BUTTON_STYLE + " w-full h-14 mt-auto"} onClick={() => setIsKoreaModalOpen(true)}>Заказать авто</button>
         </div>
         {/* New Listing Card */}
         <div className={`${CARD_STYLE} bg-[#33cc33]/20`}>
@@ -343,11 +344,33 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Modals */}
-      <KoreaCarWizard 
-        isOpen={isKoreaWizardOpen}
-        onClose={() => setIsKoreaWizardOpen(false)}
-      />
+      {/* Модальное окно 'Авто из Кореи' */}
+      <Dialog open={isKoreaModalOpen} onOpenChange={setIsKoreaModalOpen}>
+        <DialogContent className="glass-modal max-w-2xl w-[calc(100%-2rem)] mx-auto my-4 max-h-[calc(100vh-2rem)] overflow-y-auto p-0 sm:p-6 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="p-4 sm:p-6">
+            <h2 className="text-2xl font-bold mb-6 text-center text-white">Авто из Кореи</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div className="glass-card rounded-2xl p-4 text-center border border-white/10 shadow-xl">
+                <h3 className="text-lg font-bold mb-2 text-white">Выгодная цена</h3>
+                <p className="text-gray-300">Автомобили из Кореи часто дешевле аналогов из Европы и Японии при отличном состоянии.</p>
+              </div>
+              <div className="glass-card rounded-2xl p-4 text-center border border-white/10 shadow-xl">
+                <h3 className="text-lg font-bold mb-2 text-white">Богатая комплектация</h3>
+                <p className="text-gray-300">Корейские авто славятся современными опциями и высоким уровнем комфорта.</p>
+              </div>
+              <div className="glass-card rounded-2xl p-4 text-center border border-white/10 shadow-xl">
+                <h3 className="text-lg font-bold mb-2 text-white">Прозрачная история</h3>
+                <p className="text-gray-300">Вся история обслуживания и эксплуатации доступна по VIN-коду.</p>
+              </div>
+              <div className="glass-card rounded-2xl p-4 text-center border border-white/10 shadow-xl">
+                <h3 className="text-lg font-bold mb-2 text-white">Надежность</h3>
+                <p className="text-gray-300">Корейские автомобили отличаются долговечностью и простотой обслуживания.</p>
+              </div>
+            </div>
+            <KoreaCarWizard isOpen={true} onClose={() => setIsKoreaModalOpen(false)} />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
