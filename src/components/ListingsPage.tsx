@@ -548,12 +548,12 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                   placeholder="Поиск автомобиля..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                        className="glass-input pl-10 text-white placeholder-gray-300"
+                  className="glass-input pl-10 !bg-[#232323] force-dark-bg text-white placeholder-white"
                 />
               </div>
               
               <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                      <SelectTrigger className="glass-input text-white">
+                      <SelectTrigger className="glass-input !bg-[#232323] force-dark-bg text-white h-11">
                   <SelectValue placeholder="Марка" />
                 </SelectTrigger>
                       <SelectContent className="glass-modal">
@@ -567,7 +567,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
               </Select>
               
               <Select value={priceRange} onValueChange={setPriceRange}>
-                      <SelectTrigger className="glass-input text-white">
+                      <SelectTrigger className="glass-input !bg-[#232323] force-dark-bg text-white h-11">
                   <SelectValue placeholder="Цена" />
                 </SelectTrigger>
                       <SelectContent className="glass-modal">
@@ -647,7 +647,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       id="brand"
                       value={editFormData.brand}
                       onChange={(e) => setEditFormData({...editFormData, brand: e.target.value})}
-                      className="glass-input !text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                   
@@ -657,7 +657,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       id="carModel"
                       value={editFormData.carModel}
                       onChange={(e) => setEditFormData({...editFormData, carModel: e.target.value})}
-                      className="glass-input !text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                 </div>
@@ -671,7 +671,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       type="number"
                       value={editFormData.year}
                       onChange={(e) => setEditFormData({...editFormData, year: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                   
@@ -682,7 +682,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       type="number"
                       value={editFormData.price}
                       onChange={(e) => setEditFormData({...editFormData, price: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                 </div>
@@ -696,7 +696,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       step="0.1"
                       value={editFormData.engineVolume}
                       onChange={(e) => setEditFormData({...editFormData, engineVolume: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                   
@@ -707,7 +707,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       type="number"
                       value={editFormData.mileage}
                       onChange={(e) => setEditFormData({...editFormData, mileage: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                 </div>
@@ -719,7 +719,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       value={editFormData.transmission} 
                       onValueChange={(value) => setEditFormData({...editFormData, transmission: value})}
                     >
-                      <SelectTrigger className="glass-input text-white">
+                      <SelectTrigger className="glass-input !bg-[#232323] force-dark-bg text-white h-11">
                         <SelectValue placeholder="Выберите тип" />
                       </SelectTrigger>
                       <SelectContent className="glass-modal">
@@ -737,7 +737,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       value={editFormData.fuelType} 
                       onValueChange={(value) => setEditFormData({...editFormData, fuelType: value})}
                     >
-                      <SelectTrigger className="glass-input text-white">
+                      <SelectTrigger className="glass-input !bg-[#232323] force-dark-bg text-white h-11">
                         <SelectValue placeholder="Выберите тип" />
                       </SelectTrigger>
                       <SelectContent className="glass-modal">
@@ -757,7 +757,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       id="color"
                       value={editFormData.color}
                       onChange={(e) => setEditFormData({...editFormData, color: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                   
@@ -768,7 +768,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       type="number"
                       value={editFormData.ownersCount}
                       onChange={(e) => setEditFormData({...editFormData, ownersCount: e.target.value})}
-                      className="glass-input text-white"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                   </div>
                 </div>
@@ -780,19 +780,19 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                       id="isDamaged"
                       checked={editFormData.isDamaged === 'true'}
                       onChange={(e) => setEditFormData({...editFormData, isDamaged: e.target.checked.toString()})}
-                      className="glass-input"
+                      className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                     />
                     <Label htmlFor="isDamaged">Битый или не на ходу</Label>
-        </div>
-      </div>
-      
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="description">Описание</Label>
                   <Textarea
                     id="description"
                     value={editFormData.description}
                     onChange={(e) => setEditFormData({...editFormData, description: e.target.value})}
-                    className="glass-input text-white min-h-[100px]"
+                    className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white min-h-[100px]"
                   />
                 </div>
 
@@ -802,7 +802,7 @@ const ListingsPage = ({ isOpen, onClose }: ListingsPageProps) => {
                     id="contacts"
                     value={editFormData.contacts}
                     onChange={(e) => setEditFormData({...editFormData, contacts: e.target.value})}
-                    className="glass-input text-white"
+                    className="glass-input !bg-[#232323] force-dark-bg text-white placeholder-white"
                   />
                 </div>
 
