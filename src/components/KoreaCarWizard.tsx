@@ -63,10 +63,10 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <button
                 key={type}
                 onClick={() => setFormData({...formData, carType: type})}
-                className={`p-4 rounded-xl border transition-all duration-300 ${
+                className={`p-4 rounded-xl border transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] ${
                   formData.carType === type
-                    ? "glass-card border-white/20 text-white shadow-lg scale-105"
-                    : "glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5"
+                    ? "scale-105"
+                    : ""
                 }`}
               >
                 {type}
@@ -94,10 +94,10 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <button
                 key={budget.label}
                 onClick={() => setFormData({...formData, budget: budget.value.toString()})}
-                className={`p-4 rounded-xl border transition-all duration-300 ${
+                className={`p-4 rounded-xl border transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] ${
                   formData.budget === budget.value.toString()
-                    ? "glass-card border-white shadow-lg scale-105"
-                    : "glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5"
+                    ? "scale-105"
+                    : ""
                 }`}
               >
                 {budget.label}
@@ -122,10 +122,10 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               <button
                 key={delivery.label}
                 onClick={() => setFormData({...formData, deliveryCity: delivery.city})}
-                className={`w-full p-4 rounded-xl border text-left transition-all duration-300 ${
+                className={`w-full p-4 rounded-xl border text-left transition-all duration-300 glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5 !bg-[#232323] ${
                   formData.deliveryCity === delivery.city
-                    ? "glass-card border-white shadow-lg scale-105"
-                    : "glass-input text-white border-white/30 hover:border-white/50 hover:bg-white/5"
+                    ? "scale-105"
+                    : ""
                 }`}
               >
                 {delivery.label}
@@ -147,7 +147,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               placeholder="Ваше имя"
-              className="glass-input text-white placeholder-gray-300"
+              className="glass-input text-white placeholder-gray-300 !bg-[#232323]"
             />
           </div>
           <div className="space-y-2">
@@ -157,7 +157,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               placeholder={COMPANY_PHONE_DISPLAY}
-              className="glass-input text-white placeholder-gray-300"
+              className="glass-input text-white placeholder-gray-300 !bg-[#232323]"
             />
           </div>
         </div>

@@ -124,7 +124,7 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) =
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="glass-modal max-w-md w-full mx-4">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-white text-center text-white-glow">
+          <DialogTitle className="text-2xl font-bold !text-white text-center text-white-glow [color:white!important]" style={{ color: 'white' }}>
             {mode === 'register' ? 'Регистрация' : 'Вход'}
           </DialogTitle>
         </DialogHeader>
