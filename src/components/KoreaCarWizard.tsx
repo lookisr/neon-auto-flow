@@ -147,7 +147,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               placeholder="Ваше имя"
-              className="glass-input text-white placeholder-gray-300 !bg-[#232323]"
+              className="glass-input !text-white placeholder-gray-300 !bg-[#232323] focus:!text-white [&:not(:placeholder-shown)]:!text-white"
             />
           </div>
           <div className="space-y-2">
@@ -157,7 +157,7 @@ const KoreaCarWizard = ({ isOpen, onClose }: KoreaCarWizardProps) => {
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               placeholder={COMPANY_PHONE_DISPLAY}
-              className="glass-input text-white placeholder-gray-300 !bg-[#232323]"
+              className="glass-input !text-white placeholder-gray-300 !bg-[#232323] focus:!text-white [&:not(:placeholder-shown)]:!text-white"
             />
           </div>
         </div>
