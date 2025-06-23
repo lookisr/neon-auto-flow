@@ -40,7 +40,7 @@ export default function CarHeadlightGlowOverlay({ width, height, intensity = 1 }
     ctx.clearRect(0, 0, width, height);
     // Если мобильное и нет поддержки фильтра — не рисуем glow
     if (isMobileDevice && noCtxFilter) {
-      return null;
+      return;
     }
     const scaleX = width / 1200;
     const scaleY = height / 360;

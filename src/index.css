@@ -401,3 +401,35 @@ input::placeholder, .glass-input::placeholder {
 /* Убираем hover-эффект */
 .carbon-text:hover {
 }
+
+input,
+textarea {
+  background: #f3f3f3 !important;
+  color: #222 !important;
+}
+
+input::placeholder,
+textarea::placeholder,
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+input::-moz-placeholder,
+textarea::-moz-placeholder,
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+input::-ms-input-placeholder,
+textarea::-ms-input-placeholder {
+  color: #888 !important;
+  opacity: 1 !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f3f3f3 inset !important;
+  box-shadow: 0 0 0 1000px #f3f3f3 inset !important;
+  -webkit-text-fill-color: #222 !important;
+  color: #222 !important;
+  font-weight: 500 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

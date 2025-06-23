@@ -1,0 +1,10 @@
+.force-dark-bg,
+.force-dark-bg * {
+  background: #232323 !important;
+  color: #fff !important;
+}
+.force-dark-bg::placeholder,
+.force-dark-bg *::placeholder {
+  color: #fff !important;
+  opacity: 1 !important;
+} 

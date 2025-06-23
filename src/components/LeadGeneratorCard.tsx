@@ -83,8 +83,16 @@ const LeadGeneratorCard = () => {
   return (
     <div className="glass-card rounded-2xl p-8 shadow-xl transition-all duration-500">
       <style>{`
-        .glass-input::placeholder {
-          color: #a3a3a3 !important;
+        .glass-input {
+          background: #f3f3f3 !important;
+          color: #222 !important;
+        }
+        .glass-input::placeholder,
+        .glass-input::-webkit-input-placeholder,
+        .glass-input::-moz-placeholder,
+        .glass-input:-ms-input-placeholder,
+        .glass-input::-ms-input-placeholder {
+          color: #888 !important;
           opacity: 1 !important;
         }
       `}</style>
@@ -133,8 +141,8 @@ const LeadGeneratorCard = () => {
               id="model"
               value={formData.model}
               onChange={(e) => setFormData({...formData, model: e.target.value})}
-              placeholder="Например, Camry"
-              className="glass-input text-white h-10 placeholder-gray-400"
+              placeholder="Модель (например, Camry)"
+              className="glass-input text-white h-10 bg-[#232323] placeholder-white"
               disabled={isSubmitting}
             />
           </div>
@@ -170,8 +178,8 @@ const LeadGeneratorCard = () => {
               id="desiredPrice"
               value={formData.desiredPrice}
               onChange={(e) => setFormData({...formData, desiredPrice: e.target.value})}
-              placeholder="Например, 1500000"
-              className="glass-input text-white placeholder-gray-400"
+              placeholder="Желаемая сумма, ₽"
+              className="glass-input text-white bg-[#232323] placeholder-white"
               disabled={isSubmitting}
             />
           </div>
@@ -184,8 +192,8 @@ const LeadGeneratorCard = () => {
               id="phone"
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
-              placeholder={COMPANY_PHONE_DISPLAY}
-              className="glass-input text-white placeholder-gray-400"
+              placeholder="Ваш телефон"
+              className="glass-input text-white bg-[#232323] placeholder-white"
               disabled={isSubmitting}
             />
           </div>
