@@ -141,7 +141,7 @@ const Index = () => {
             <div className="mb-4 bg-[#ff3333]/10 p-4 rounded-full border border-[#ff3333]/20">
               <FileText className="h-10 w-10 text-[#ff3333]" />
             </div>
-            <h3 className="text-2xl font-bold mb-2 text-white">Продать своё авто</h3>
+            <h3 className="text-2xl font-bold mb-2 text-white">Срочный выкуп авто</h3>
             <p className="text-gray-300 mb-4">
               Быстрое и безопасное оформление. Получите предложение за 5 минут и деньги сразу.
             </p>
@@ -196,7 +196,7 @@ const Index = () => {
               </div>
               <div>
                 <Input
-                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
+                  className="glass-input !text-white placeholder-gray-300 h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm [&:not(:placeholder-shown)]:!text-white"
                   placeholder="Модель"
                   value={leadForm.model}
                   onChange={e => handleLeadInputChange('model', e.target.value)}
@@ -205,7 +205,7 @@ const Index = () => {
               </div>
               <div>
                 <Input
-                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
+                  className="glass-input !text-white placeholder-gray-300 h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm [&:not(:placeholder-shown)]:!text-white"
                   placeholder="Год"
                   type="number"
                   value={leadForm.year}
@@ -215,7 +215,7 @@ const Index = () => {
               </div>
               <div>
                 <Input
-                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
+                  className="glass-input !text-white placeholder-gray-300 h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm [&:not(:placeholder-shown)]:!text-white"
                   placeholder="Цена, ₽"
                   type="number"
                   value={leadForm.price}
@@ -225,7 +225,7 @@ const Index = () => {
               </div>
               <div className="md:col-span-2">
                 <Input
-                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
+                  className="glass-input !text-white placeholder-gray-300 h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm [&:not(:placeholder-shown)]:!text-white"
                   placeholder="Телефон"
                   value={leadForm.phone}
                   onChange={e => handleLeadInputChange('phone', e.target.value)}
@@ -234,7 +234,7 @@ const Index = () => {
               </div>
               <div className="md:col-span-2">
                 <Input
-                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
+                  className="glass-input !text-white placeholder-gray-300 h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm [&:not(:placeholder-shown)]:!text-white"
                   placeholder="Ваше имя"
                   value={leadForm.name}
                   onChange={e => handleLeadInputChange('name', e.target.value)}
@@ -243,7 +243,7 @@ const Index = () => {
               </div>
               <div className="md:col-span-2">
                 <Input
-                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
+                  className="glass-input !text-white placeholder-gray-300 h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm [&:not(:placeholder-shown)]:!text-white"
                   placeholder="E-mail"
                   value={leadForm.email}
                   onChange={e => handleLeadInputChange('email', e.target.value)}
@@ -254,7 +254,7 @@ const Index = () => {
                 <textarea
                   placeholder="Сообщение"
                   rows={4}
-                  className="w-full glass-input text-white placeholder-white rounded-lg px-4 py-3 h-28 !bg-[#232323] text-base md:text-sm md:px-3 md:py-2 focus:outline-none focus:border-white/50 transition-all resize-none"
+                  className="w-full glass-input !text-white placeholder-gray-300 rounded-lg px-4 py-3 h-28 !bg-[#232323] text-base md:text-sm md:px-3 md:py-2 focus:outline-none focus:border-white/50 transition-all resize-none [&:not(:placeholder-shown)]:!text-white"
                   value={leadForm.message}
                   onChange={e => handleLeadInputChange('message', e.target.value)}
                   disabled={leadSubmitting}
