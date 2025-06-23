@@ -186,7 +186,7 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Select value={leadForm.brand} onValueChange={v => handleLeadInputChange('brand', v)}>
-                  <SelectTrigger className="glass-input text-white h-11">
+                  <SelectTrigger className="glass-input text-white !bg-[#232323] force-dark-bg h-11">
                     <SelectValue placeholder="Марка" />
                   </SelectTrigger>
                   <SelectContent className="glass-modal border-white/30" side="bottom" avoidCollisions={false}>
@@ -198,7 +198,7 @@ const Index = () => {
               </div>
               <div>
                 <Input
-                  className="glass-input text-white h-11"
+                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
                   placeholder="Модель"
                   value={leadForm.model}
                   onChange={e => handleLeadInputChange('model', e.target.value)}
@@ -207,7 +207,7 @@ const Index = () => {
               </div>
               <div>
                 <Input
-                  className="glass-input text-white h-11"
+                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
                   placeholder="Год"
                   type="number"
                   value={leadForm.year}
@@ -217,7 +217,7 @@ const Index = () => {
               </div>
               <div>
                 <Input
-                  className="glass-input text-white h-11"
+                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
                   placeholder="Цена, ₽"
                   type="number"
                   value={leadForm.price}
@@ -227,7 +227,7 @@ const Index = () => {
               </div>
               <div className="md:col-span-2">
                 <Input
-                  className="glass-input text-white h-11"
+                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
                   placeholder="Телефон"
                   value={leadForm.phone}
                   onChange={e => handleLeadInputChange('phone', e.target.value)}
@@ -236,7 +236,7 @@ const Index = () => {
               </div>
               <div className="md:col-span-2">
                 <Input
-                  className="glass-input text-white h-11"
+                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
                   placeholder="Ваше имя"
                   value={leadForm.name}
                   onChange={e => handleLeadInputChange('name', e.target.value)}
@@ -245,7 +245,7 @@ const Index = () => {
               </div>
               <div className="md:col-span-2">
                 <Input
-                  className="glass-input text-white h-11"
+                  className="glass-input text-white placeholder-white h-12 px-4 py-3 !bg-[#232323] text-base md:h-11 md:px-3 md:py-2 md:text-sm"
                   placeholder="E-mail"
                   value={leadForm.email}
                   onChange={e => handleLeadInputChange('email', e.target.value)}
@@ -256,7 +256,7 @@ const Index = () => {
                 <textarea
                   placeholder="Сообщение"
                   rows={4}
-                  className="w-full glass-input text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-white/50 transition-all resize-none"
+                  className="w-full glass-input text-white placeholder-white rounded-lg px-4 py-3 h-28 !bg-[#232323] text-base md:text-sm md:px-3 md:py-2 focus:outline-none focus:border-white/50 transition-all resize-none"
                   value={leadForm.message}
                   onChange={e => handleLeadInputChange('message', e.target.value)}
                   disabled={leadSubmitting}
